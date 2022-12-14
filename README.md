@@ -1,5 +1,5 @@
 # PHbomber
- smsbomber
+smsbomber its only works in Philippines
 # Manual for termux
 ```
 pkg install git
