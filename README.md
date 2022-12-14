@@ -9,7 +9,7 @@ git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
 python3 phbomber.py
 ```
-# Manual for termux
+# Manual for windows
 ```
 download and install python on python.org
 download and install git
