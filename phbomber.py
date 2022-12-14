@@ -29,6 +29,7 @@ line2=("\033[1;92m║"+58*"\033[1;92m═")
 limit = 0
 limit1 = 0
 field = 0
+slp = 0
 RUN = True
 def otp(number):
     global limit, field
@@ -165,7 +166,7 @@ def otp4(number):
         return False
         
 def bomber(function):
-    global limit, RUN, limit1, field
+    global limit, RUN, limit1, field, slp
     number = open("number.txt", "r").read()
     while bool(RUN) == True:
         if function(number):
@@ -174,12 +175,12 @@ def bomber(function):
 
             if int(limit) >= int(limit1):
                 RUN = False
-            
+        time.sleep(int(slp))
 def pick():
     a = input("\033[1;92m╚═════\033[1;91m>>>\033[1;97m")
     return a
 def home():
-    global limit1
+    global limit1, slp
     os.system(clr)
     print(logo)
     print(line)
@@ -191,6 +192,8 @@ def home():
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
     function = [otp, otp1, otp2, otp3, otp4]
     limit1 = pick()
+    print("\033[1;92m║ \033[1;94m—> \033[1;92mSleep")
+    slp = pick()
     p = ThreadPool(int(len(function)))
     p.map(bomber, function)
     bomber(number)
