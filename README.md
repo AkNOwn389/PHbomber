@@ -19,6 +19,15 @@ git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
 python phbomber.py
 ```
+# Manual for linux
+```
+sudo apt install python3-pip
+sudo apt install git
+pip install requests
+git clone https://github.com/AkNOwn389/PHbomber
+cd PHbomber
+python3 phbomber.py
+```
 # ScreenShot
 ![Screenshot](https://github.com/AkNOwn389/PHbomber/blob/main/Screenshot_20221215-005531.jpg)
 
