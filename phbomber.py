@@ -277,7 +277,6 @@ def home():
     slp = pick()
     p = ThreadPool(int(len(function)))
     p.map(bomber, function)
-    bomber(number)
     print("\r\r"+line)
     print("Done.")
 if __name__=="__main__":
