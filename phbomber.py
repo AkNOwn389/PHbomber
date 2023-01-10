@@ -346,7 +346,7 @@ def home():
     a.write(str(number))
     a.close()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
-    function = [otp, otp1, otp2, otp3, otp4, otp5, otp6, otp7, otp8, otp9]
+    function = [otp, otp1, otp2, otp3, otp4, otp5, otp6, otp7, otp8, otp9, otp10]
     limit1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mSleep")
     slp = pick()
