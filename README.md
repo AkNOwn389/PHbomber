@@ -4,7 +4,7 @@ smsbomber its only works in Philippines
 ```
 pkg install git
 pkg install python3
-pip3 install requests
+pip3 install -r requirements.txt
 git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
 python3 phbomber.py
@@ -14,7 +14,7 @@ python3 phbomber.py
 download and install python on python.org
 download and install git
 go on command promt
-pip install requests
+pip install -r requirements.txt
 git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
 python phbomber.py
@@ -23,7 +23,7 @@ python phbomber.py
 ```
 sudo apt install python3-pip
 sudo apt install git
-pip install requests
+pip install -r requirements.txt
 git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
 python3 phbomber.py
