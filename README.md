@@ -7,7 +7,7 @@ pkg install python3
 pip3 install -r requirements.txt
 git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
-python3 phbomber.py
+python3 run.py
 ```
 # Manual for windows
 ```
@@ -17,7 +17,7 @@ go on command promt
 pip install -r requirements.txt
 git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
-python phbomber.py
+python run.py
 ```
 # Manual for linux
 ```
@@ -26,7 +26,7 @@ sudo apt install git
 pip install -r requirements.txt
 git clone https://github.com/AkNOwn389/PHbomber
 cd PHbomber
-python3 phbomber.py
+python3 run.py
 ```
 # ScreenShot
 ![Screenshot](https://github.com/AkNOwn389/PHbomber/blob/main/Screenshot_20221215-005531.jpg)
