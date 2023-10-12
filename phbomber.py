@@ -316,21 +316,30 @@ def otp8(number):
     global limit, field
     number = to9(number=number)
     session = requests.Session()
-    url = "https://api.ayala-group.top/sendSMS.do"
-    header = {'Host': 'api.ayala-group.top', 'Connection': 'keep-alive', 'Content-Length': '24', 'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Microsoft Edge";v="108"', 'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0',
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54', 'sec-ch-ua-platform': '"Windows"', 'sec-gpc': '1', 'Origin': 'https://m.ayala-vip.com/', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://m.ayala-vip.com/', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
-    body = {"mobile": str(number), "type": "2"}
+    url = "https://api.taibots.com/buyer/send_code"
+    header = {'Host': 'api.taibots.com','Connection': 'keep-alive','Content-Length': '190','sec-ch-ua': '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"','Accept': 'application/json, text/plain, */*','Content-Type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36','sec-ch-ua-platform': '"Windows"','Sec-GPC': '1','Accept-Language': 'en-US,en;q=0.6','Origin': 'https://www.taibots.com','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.taibots.com/','Accept-Encoding': 'gzip'}
+    
+    body = {
+        "lang": "us",
+        "phone": str(number),
+        "country[text]": "Philippines +63",
+        "country[value]": "+63",
+        "country[abbr]": "ph",
+        "captcha": "",
+        "key": "$2y$10$q/dRLLwlu7Gyqb8aYs8xgOGKZqzjTBy20EmeuUBUdtCOpyWvGnC4S"
+    }
     try:
         web = session.post(url, headers=header, data=body)
+        r = json.loads(web.text)
         if debug == True:
-            ic(f"{web.status_code} from ayala group 1")
-        if int(web.status_code) == 200:
+            ic(f"{web.status_code} from taibots")
+        if r['code'] == 0:
             limit += 1
             return True
         else:
             field += 1
             return False
-    except:
+    except Exception as e:
         field += 1
         if debugError == True:
             ic(f"\033[1;91mError otp8\033[1;92m")
