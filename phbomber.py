@@ -4,7 +4,6 @@ import sys
 import os
 import base64
 import json
-import random
 from icecream import ic
 from multiprocessing.pool import ThreadPool
 logo = (""" \033[1;92m____  _   _ _                     _
@@ -261,24 +260,26 @@ def otp5(number):
 def otp6(number):
     global limit, field
     number = to9(number=number)
-    url = "https://www.qmsyrr.com/index/Index/smsCode.html"
-    header = {'Host': 'www.qmsyrr.com', 'Connection': 'keep-alive', 'Content-Length': '17', 'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Microsoft Edge";v="108"', 'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-Requested-With': 'XMLHttpRequest', 'sec-ch-ua-mobile': '?0',
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46', 'sec-ch-ua-platform': '"Windows"', 'sec-gpc': '1', 'Origin': 'https://www.qmsyrr.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.qmsyrr.com/index/index/login.html?code=4927714', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'en-US,en;q=0.9'}
-    body = {"mobile": str(number)}
+    url = "https://vividzoo.com/index.php/api/sms/send2"
+    header = {'Host': 'vividzoo.com','Connection': 'keep-alive','Content-Length': '32','sec-ch-ua': '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"','Content-Type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36','token': '','dev': 'H5','sec-ch-ua-platform': '"Windows"','Accept': '*/*','Sec-GPC': '1','Accept-Language': 'en-US,en;q=0.7','Origin': 'https://vividzoo.com','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://vividzoo.com/h5/pages/login/reg?invite=94376825','Accept-Encoding': 'gzip'}
+    
+    body = {"mobile": str(number), "event": "register"}
+    
     try:
         web = requests.post(url, headers=header, data=body)
+        r = json.loads(web.text)
         if debug == True:
-            ic(f"{web.status_code} from qmsyrr")
-        if int(web.status_code) == 200:
+            ic(f"{r} from vividzoo")
+        if r['code'] == 1:
             limit += 1
             return True
         else:
             field += 1
             return False
-    except:
+    except Exception as e:
         field += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp6\033[1;92m")
+            ic(f"\033[1;91mError otp6\033[1;92m {e}")
         return False
 # api7
 
