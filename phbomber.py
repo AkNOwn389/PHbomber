@@ -5,6 +5,7 @@ import os
 import base64
 import json
 import random
+from icecream import ic
 from multiprocessing.pool import ThreadPool
 logo = (""" \033[1;92m____  _   _ _                     _
 |  _ \| | | | |__   ___  _ __ ___ | |__   ___ _ __
@@ -84,7 +85,7 @@ def otp(number):
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
         if debug == True:
-            print(f"{r} from cocacolahightech")
+            ic(f"{r} from cocacolahightech")
         if r["code"] == 200:
             limit += 1
             return True
@@ -94,7 +95,7 @@ def otp(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError cocacola\033[1;92m")
+            ic(f"\033[1;91mError cocacola\033[1;92m")
         return False
 # api1
 
@@ -109,7 +110,7 @@ def otp1(number):
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
         if debug == True:
-            print(f"{r} from skpools")
+            ic(f"{r} from skpools")
         if r["code"] == 200:
             limit += 1
             return True
@@ -119,7 +120,7 @@ def otp1(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp1\033[1;92m")
+            ic(f"\033[1;91mError otp1\033[1;92m")
         return False
 # api2
 
@@ -162,7 +163,7 @@ def otp2(number):
         web = requests.post(url, headers=header, data=body)
         r = json.loads(web.text)
         if debug == True:
-            print(f"{r} from ma7hrte")
+            ic(f"{r} from ma7hrte")
         if r["code"] == 0:
             limit += 1
             return True
@@ -172,7 +173,7 @@ def otp2(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp2\033[1;92m")
+            ic(f"\033[1;91mError otp2\033[1;92m")
         return False
 # api3
 
@@ -189,7 +190,7 @@ def otp3(number):
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
         if debug == True:
-            print(f"{r} from toktok")
+            ic(f"{r} from toktok")
         if r["data"]["loginRegister"] == "REGISTER":
             limit += 1
             return True
@@ -199,7 +200,7 @@ def otp3(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp3\033[1;92m")
+            ic(f"\033[1;91mError otp3\033[1;92m")
         return False
 # api4
 
@@ -215,7 +216,7 @@ def otp4(number):
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
         if debug == True:
-            print(f"{r} from 777pub 1")
+            ic(f"{r} from 777pub 1")
         if r["msg"] == "success":
             limit += 1
             return True
@@ -225,7 +226,7 @@ def otp4(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp4\033[1;92m")
+            ic(f"\033[1;91mError otp4\033[1;92m")
         return False
 # api5
 
@@ -242,7 +243,7 @@ def otp5(number):
         web = requests.post(url, headers=header, data=body)
         r = json.loads(web.text)
         if debug == True:
-            print(f"{r} from 777pub")
+            ic(f"{r} from 777pub")
         if r["code"] == 0:
             limit += 1
             return True
@@ -252,7 +253,7 @@ def otp5(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp5\033[1;92m")
+            ic(f"\033[1;91mError otp5\033[1;92m")
         return False
 # api6
 
@@ -267,7 +268,7 @@ def otp6(number):
     try:
         web = requests.post(url, headers=header, data=body)
         if debug == True:
-            print(f"{web.status_code} from qmsyrr")
+            ic(f"{web.status_code} from qmsyrr")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -277,7 +278,7 @@ def otp6(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp6\033[1;92m")
+            ic(f"\033[1;91mError otp6\033[1;92m")
         return False
 # api7
 
@@ -295,7 +296,7 @@ def otp7(number):
         web = session.post(url, headers=header, data=body)
         r = json.loads(web.text)
         if debug == True:
-            print(f"{r} from gplayer77")
+            ic(f"{r} from gplayer77")
         if r['code'] == 200:
             limit += 1
             return True
@@ -305,7 +306,7 @@ def otp7(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp7\033[1;92m")
+            ic(f"\033[1;91mError otp7\033[1;92m")
         return False
 # api8
 
@@ -321,7 +322,7 @@ def otp8(number):
     try:
         web = session.post(url, headers=header, data=body)
         if debug == True:
-            print(f"{web.status_code} from ayala group 1")
+            ic(f"{web.status_code} from ayala group 1")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -331,7 +332,7 @@ def otp8(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp8\033[1;92m")
+            ic(f"\033[1;91mError otp8\033[1;92m")
         return False
 # api9
 
@@ -347,7 +348,7 @@ def otp9(number):
     try:
         web = session.post(url, headers=header, data=body)
         if debug == True:
-            print(f"{web.status_code} from ayala group")
+            ic(f"{web.status_code} from ayala group")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -357,7 +358,7 @@ def otp9(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp9\033[1;92m")
+            ic(f"\033[1;91mError otp9\033[1;92m")
         return False
 # api10
 
@@ -371,7 +372,7 @@ def otp10(number):
     try:
         web = session.post(url, json=body)
         if debug == True:
-            print(f"{web.status_code} from yhaphtai")
+            ic(f"{web.status_code} from yhaphtai")
         if int(web.status_code) == 200:
             limit += 1
             return True
@@ -381,7 +382,7 @@ def otp10(number):
     except:
         field += 1
         if debugError == True:
-            print(f"\033[1;91mError otp10\033[1;92m")
+            ic(f"\033[1;91mError otp10\033[1;92m")
         return False
 
 # you can add api and put it in the box to run
