@@ -1,0 +1,15 @@
+{
+     "ph": [
+          {
+               "isBodyData":true,
+               "isBodyJson": true,
+               "cookies": false,
+               "bodyEncoding": "gzip",
+               "method": "POST",
+               "loop": 1,
+               "url": [],
+               "header": {},
+               "body": {}
+          }
+     ]
+}
