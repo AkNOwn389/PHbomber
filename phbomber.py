@@ -420,7 +420,7 @@ def bomber(function):
 
 
 def pick():
-    a = input("\033[1;92m╚═════\033[1;91m>>>\033[1;97m")
+    a = input("\033[1;92m╚═════\033[1;91m>>>\033[1;97m ")
     return a
 
 # home
