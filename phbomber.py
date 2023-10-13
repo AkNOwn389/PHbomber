@@ -454,7 +454,7 @@ def home():
     # if bomber is finish its going here
     print("\r\r"+line2)
     print(f"\033[1;92m║ \033[1;92mTotal sms send \033[1;93m{LIMIT}")
-    print(f"\033[1;92m║ \033[1;92mTotal unsupported api \033[1;91m{ERROR}")
+    print(f"\033[1;92m║ \033[1;92mTotal sending error \033[1;91m{ERROR}")
     print("\r\r"+line2)
     print("\033[1;92m║ Done.")
 
