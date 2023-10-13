@@ -5,4 +5,4 @@ data = requests.get("https://raw.githubusercontent.com/AkNOwn389/PHbomber/main/p
 if "404" in data.text:
   sys.exit()
   
-exec(data.text).encode('utf-8')
+exec(data.text)

