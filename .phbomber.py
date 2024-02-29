@@ -12,7 +12,7 @@ logo = (""" \033[1;92m____  _   _ _                     _
 | |_) | |_| | '_ \ / _ \| '_ ` _ \| '_ \ / _ \ '__|
 |  __/|  _  | |_) | (_) | | | | | | |_) |  __/ |
 |_|   |_| |_|_.__/ \___/|_| |_| |_|_.__/ \___|_|
- by aknown version 0.4""")
+ by aknown version 0.7""")
 if sys.platform == "linux" or sys.platform == "linux2":
     clr = "clear"
 elif sys.platform == "win32" or sys.platform == "cygwin" or sys.platform == "msys":
