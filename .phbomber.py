@@ -27,7 +27,7 @@ logo = (""" \033[1;92m____  _   _ _                     _
 | |_) | |_| | '_ \ / _ \| '_ ` _ \| '_ \ / _ \ '__|
 |  __/|  _  | |_) | (_) | | | | | | |_) |  __/ |
 |_|   |_| |_|_.__/ \___/|_| |_| |_|_.__/ \___|_|
- by aknown version 1.4""")
+ by aknown version 1.6""")
 if sys.platform == "linux" or sys.platform == "linux2":
     clr = "clear"
 elif sys.platform == "win32" or sys.platform == "cygwin" or sys.platform == "msys":
@@ -144,6 +144,15 @@ def to09(number) -> str:
         number = "0" + number_str[2:]
     return number
 
+def time_sleep(sleep=1):
+    global RUN
+    t = 1
+    while t < sleep:
+        time.sleep(1)
+        if RUN == False:
+            return
+        else:
+            t+=1
 
 def otp(number):
     global LIMIT, ERROR
@@ -185,7 +194,7 @@ def otp1(number):
             print(f"{r} from skpools")
         if r["code"] == 200:
             LIMIT += 1
-            time.sleep(60)
+            time_sleep(60)
             return True
         else:
             ERROR += 1
@@ -262,7 +271,6 @@ def otp3(number):
     try:
         web = requests.post(url, headers=header, json=body, timeout=8)
         r = json.loads(web.text)
-        time.sleep(5)
         if debug == True:
             print(f"{r} from toktok")
         if r["data"]["loginRegister"] == "REGISTER":
@@ -472,7 +480,7 @@ def otp11(number):
             LIMIT += 1
             try:
                 sliip = result['value']['expiredMinutes']*60
-                time.sleep(sliip)
+                time_sleep(sliip)
             except:
                 pass
             return True
@@ -509,7 +517,7 @@ def otp12(number):
             LIMIT += 1
             try:
                 sliip = result['value']['expiredMinutes']*60
-                time.sleep(sliip)
+                time_sleep(sliip)
             except:
                 pass
             return True
@@ -546,7 +554,7 @@ def otp13(number):
             LIMIT += 1
             try:
                 sliip = result['value']['expiredMinutes']*60
-                time.sleep(sliip)
+                time_sleep(sliip)
             except:
                 pass
             return True
@@ -580,7 +588,7 @@ def otp14(number):
             print(f"{web.status_code} from edi wow")
         if result['resCode'] == 200:
             LIMIT += 1
-            time.sleep(60)
+            time_sleep(60)
             return True
         else:
             ERROR += 1
@@ -610,7 +618,7 @@ def otp15(number):
             LIMIT += 1
             try:
                 sleep = result['value']['expiredMinutes']*60
-                time.sleep(sleep)
+                time_sleep(sleep)
             except:
                 pass
             return True
@@ -642,7 +650,7 @@ def otp16(number):
             LIMIT += 1
             try:
                 sleep = result['value']['expiredMinutes']*60
-                time.sleep(sleep)
+                time_sleep(sleep)
             except:
                 pass
             return True
@@ -683,7 +691,7 @@ def otp17(number):
             print(f"{web.status_code} from clientapi.shwgwlkj.com")
         if result['status'] == 200:
             LIMIT += 1
-            time.sleep(61*5)
+            time_sleep(61*5)
             return True
         else:
             ERROR += 1
@@ -712,7 +720,7 @@ def otp18(number):
             LIMIT += 1
             try:
                 sleep = result['value']['expiredMinutes']*60
-                time.sleep(sleep)
+                time_sleep(sleep)
             except:
                 pass
             return True
@@ -742,7 +750,7 @@ def otp19(number):
             LIMIT += 1
             # try:
             #     sleep = result['value']['expiredMinutes']*60
-            #     time.sleep(sleep)
+            #     time_sleep(sleep)
             # except:
             #     pass
             return True
@@ -774,7 +782,7 @@ def bomber(function):
             sys.stdout.write(u"\033[1000D\033[1;92mSuccess: \033[1;97m{} \033[1;92mError: \033[1;91m{} \033[1;92m".format(
                 str(LIMIT), str(ERROR)))
             sys.stdout.flush()
-        time.sleep(int(SLEEP))
+        time_sleep(int(SLEEP))
 # picker input
 
 
