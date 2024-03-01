@@ -7,17 +7,33 @@ import json
 import random
 from icecream import ic
 from multiprocessing.pool import ThreadPool
+blue = "\033[1;96m"
+white = "\033[1;97m"
+green = "\033[1;92m"
+red = "\033[1;91m"
+yellow = "\033[1;93m"
+line = ("\033[1;92m╔═"+57*"\033[1;92m═")
+line2 = ("\033[1;92m║"+58*"\033[1;92m═")
 logo = (""" \033[1;92m____  _   _ _                     _
 |  _ \| | | | |__   ___  _ __ ___ | |__   ___ _ __
 | |_) | |_| | '_ \ / _ \| '_ ` _ \| '_ \ / _ \ '__|
 |  __/|  _  | |_) | (_) | | | | | | |_) |  __/ |
 |_|   |_| |_|_.__/ \___/|_| |_| |_|_.__/ \___|_|
- by aknown version 0.7""")
+ by aknown version 0.8""")
 if sys.platform == "linux" or sys.platform == "linux2":
     clr = "clear"
 elif sys.platform == "win32" or sys.platform == "cygwin" or sys.platform == "msys":
     clr = "cls"
 session = requests.Session()
+def log(msg):
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"\033[1;92m║ {green}{current_time}: {msg}{white}")
+    return
+
+def log_error(msg):
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"\033[1;92m║ {red}{current_time}: {msg}{white}")
+    return
 if sys.version_info[0] != 3:
     os.system('clear')
     print(logo)
@@ -25,8 +41,7 @@ if sys.version_info[0] != 3:
     print('''\t\tREQUIRED PYTHON 3.x\n\t\tinstall and try: python3 fb.py\n''')
     print(65 * '\033[1;92m═')
     sys.exit()
-line = ("\033[1;92m╔═"+57*"\033[1;92m═")
-line2 = ("\033[1;92m║"+58*"\033[1;92m═")
+
 LIMIT = 0
 LIMIT1 = 0
 ERROR = 0
@@ -77,6 +92,39 @@ def to09(number) -> str:
         pass
     return number
 # api0
+def to9(number) -> str:
+    number_str = str(number)
+    if number_str.startswith("0"):
+        number = number_str[1:]
+    elif number_str.startswith("+"):
+        number = number_str[3:]
+    elif number_str.startswith("63"):
+        number = number_str[2:]
+    return number
+
+def to639(number) -> str:
+    number_str = str(number)
+    if number_str.startswith("0"):
+        number = "63" + number_str[1:]
+    elif number_str.startswith("+"):
+        number = number_str[1:]
+    return number
+
+def toplus63(number) -> str:
+    number_str = str(number)
+    if number_str.startswith("0"):
+        number = "+63" + number_str[1:]
+    elif number_str.startswith("63"):
+        number = "+" + number_str
+    return number
+
+def to09(number) -> str:
+    number_str = str(number)
+    if number_str.startswith("+"):
+        number = "0" + number_str[1:]
+    elif number_str.startswith("63"):
+        number = "0" + number_str[2:]
+    return number
 
 
 def otp(number):
@@ -426,6 +474,11 @@ def otp11(number):
             ic(f"{web.status_code} from luxeplay")
         if result['success'] == True:
             LIMIT += 1
+            try:
+                sliip=result['value']['expiredMinutes']*60
+                time.sleep(sliip)
+            except:
+                pass
             return True
         elif result['success'] == False:
             ERROR += 1
@@ -458,6 +511,11 @@ def otp12(number):
             ic(f"{web.status_code} from wagi777")
         if result['success'] == True:
             LIMIT += 1
+            try:
+                sliip=result['value']['expiredMinutes']*60
+                time.sleep(sliip)
+            except:
+                pass
             return True
         elif result['success'] == False:
             ERROR += 1
@@ -490,6 +548,11 @@ def otp13(number):
             ic(f"{web.status_code} from wqb753")
         if result['success'] == True:
             LIMIT += 1
+            try:
+                sliip=result['value']['expiredMinutes']*60
+                time.sleep(sliip)
+            except:
+                pass
             return True
         elif result['success'] == False:
             ERROR += 1
@@ -581,8 +644,13 @@ def home():
     print("\033[1;92m║ \033[1;94m—> \033[1;92mThreads Sleep default:1")
     # put sleep in global variable
     # note thats why i call global for its to grant call it anyware in the system
-    s = pick()
-    SLEEP = s if s else 1
+    try:
+        s = pick()
+        SLEEP = s if s else 1
+    except Exception as e:
+        SLEEP = 1
+        log_error(e)
+    print(f"\033[1;92m║ \033[1;92mBombing target...")
     # defind the multiprocess
     p = ThreadPool(int(len(function)))
     # run the multiprocess
@@ -597,4 +665,6 @@ def home():
 
 # if run main it going to home
 if __name__ == "__main__":
+    os.system("git pull")
+    os.system(clr)
     home()
