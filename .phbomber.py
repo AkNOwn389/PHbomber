@@ -664,7 +664,8 @@ def otp17(number):
         "data": "Verification code sent successfully", "status": 200}
     url = "https://clientapi.shwgwlkj.com/user/get-phone-code"
     boundary = '----WebKitFormBoundary' + \
-        ''.join(random.sample(string.ascii_letters + string.digits + string.ascii_uppercase, 16))
+        ''.join(random.sample(string.ascii_letters +
+                string.digits + string.ascii_uppercase, 16))
 
     fields = {
         'code': 'Masaya365',
@@ -673,7 +674,8 @@ def otp17(number):
         'phone': str(number)
     }
     m = MultipartEncoder(fields=fields, boundary=boundary)
-    headers = {'Host': 'clientapi.shwgwlkj.com', 'Connection': 'keep-alive', 'Content-Length': '438', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Accept': 'application/json, text/javascript, */*; q=0.01', 'Content-Type': f'multipart/form-data; boundary={boundary}', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.9', 'Origin': 'https://masaya656.com', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://masaya656.com/', 'Accept-Encoding': 'gzip'}
+    headers = {'Host': 'clientapi.shwgwlkj.com', 'Connection': 'keep-alive', 'Content-Length': '438', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Accept': 'application/json, text/javascript, */*; q=0.01', 'Content-Type': f'multipart/form-data; boundary={boundary}', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+               'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.9', 'Origin': 'https://masaya656.com', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://masaya656.com/', 'Accept-Encoding': 'gzip'}
     try:
         web = session.post(url, headers=headers, data=m.to_string(), timeout=8)
         result = json.loads(web.text)
@@ -739,7 +741,7 @@ def home():
     # all process put in the box to put in multiprocess
     function = [otp, otp1, otp2, otp3, otp4,
                 otp5, otp6, otp7, otp8, otp9,
-                otp11, otp12, otp13, otp14, 
+                otp11, otp12, otp13, otp14,
                 otp15, otp16, otp17
                 ]
     # append LIMIT in global variables
