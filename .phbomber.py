@@ -679,7 +679,6 @@ def otp17(number):
     try:
         web = session.post(url, headers=headers, data=m.to_string(), timeout=8)
         result = json.loads(web.text)
-        print(result)
         if debug:
             print(f"{web.status_code} from clientapi.shwgwlkj.com")
         if result['status'] == 200:
