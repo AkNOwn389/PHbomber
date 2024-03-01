@@ -39,7 +39,7 @@ python3 run.py
 Contributions are welcome! If you find issues or want to improve the project, feel free to submit a pull request.
 
 # License
-This project is licensed under the [type of license, e.g., MIT License]. See the LICENSE file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 # Support
 If you find this project helpful, consider buying me a coffee.
