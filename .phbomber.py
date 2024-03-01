@@ -5,6 +5,7 @@ import os
 import base64
 import json
 import random
+import datetime
 from icecream import ic
 from multiprocessing.pool import ThreadPool
 blue = "\033[1;96m"
@@ -25,15 +26,20 @@ if sys.platform == "linux" or sys.platform == "linux2":
 elif sys.platform == "win32" or sys.platform == "cygwin" or sys.platform == "msys":
     clr = "cls"
 session = requests.Session()
+
+
 def log(msg):
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"\033[1;92m║ {green}{current_time}: {msg}{white}")
     return
 
+
 def log_error(msg):
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"\033[1;92m║ {red}{current_time}: {msg}{white}")
     return
+
+
 if sys.version_info[0] != 3:
     os.system('clear')
     print(logo)
@@ -51,47 +57,49 @@ debug = False
 debugError = False
 
 
-def to9(number) -> str:
-    if str(number[0]) == "0":
-        number = str(number[1:])
-    elif str(number[0]) == "+":
-        number = str(number[3:])
-    elif str(number[:2]) == "63":
-        number = str(number[:2])
-    else:
-        pass
-    return number
+# def to9(number) -> str:
+#     if str(number[0]) == "0":
+#         number = str(number[1:])
+#     elif str(number[0]) == "+":
+#         number = str(number[3:])
+#     elif str(number[:2]) == "63":
+#         number = str(number[:2])
+#     else:
+#         pass
+#     return number
 
 
-def to639(number) -> str:
-    if str(number[0]) == "0":
-        number = number.replace(str(number[0]), "63")
-    elif str(number[0]) == "+":
-        number = number.replace("+", "")
-    else:
-        pass
-    return number
+# def to639(number) -> str:
+#     if str(number[0]) == "0":
+#         number = number.replace(str(number[0]), "63")
+#     elif str(number[0]) == "+":
+#         number = number.replace("+", "")
+#     else:
+#         pass
+#     return number
 
 
-def toplus63(number) -> str:
-    if str(number[0]) == "0":
-        number = "+63"+str(number[1:])
-    elif str(number[:2]) == "63":
-        number = "+"+str(number)
-    else:
-        pass
-    return number
+# def toplus63(number) -> str:
+#     if str(number[0]) == "0":
+#         number = "+63"+str(number[1:])
+#     elif str(number[:2]) == "63":
+#         number = "+"+str(number)
+#     else:
+#         pass
+#     return number
 
 
-def to09(number) -> str:
-    if str(number[0]) == "+":
-        number = "0"+str(number[1:])
-    elif str(number[:2]) == "63":
-        number = "0"+str(number[2:])
-    else:
-        pass
-    return number
-# api0
+# def to09(number) -> str:
+#     if str(number[0]) == "+":
+#         number = "0"+str(number[1:])
+#     elif str(number[:2]) == "63":
+#         number = "0"+str(number[2:])
+#     else:
+#         pass
+#     return number
+# # api0
+
+
 def to9(number) -> str:
     number_str = str(number)
     if number_str.startswith("0"):
@@ -102,6 +110,7 @@ def to9(number) -> str:
         number = number_str[2:]
     return number
 
+
 def to639(number) -> str:
     number_str = str(number)
     if number_str.startswith("0"):
@@ -110,6 +119,7 @@ def to639(number) -> str:
         number = number_str[1:]
     return number
 
+
 def toplus63(number) -> str:
     number_str = str(number)
     if number_str.startswith("0"):
@@ -117,6 +127,7 @@ def toplus63(number) -> str:
     elif number_str.startswith("63"):
         number = "+" + number_str
     return number
+
 
 def to09(number) -> str:
     number_str = str(number)
@@ -475,7 +486,7 @@ def otp11(number):
         if result['success'] == True:
             LIMIT += 1
             try:
-                sliip=result['value']['expiredMinutes']*60
+                sliip = result['value']['expiredMinutes']*60
                 time.sleep(sliip)
             except:
                 pass
@@ -512,7 +523,7 @@ def otp12(number):
         if result['success'] == True:
             LIMIT += 1
             try:
-                sliip=result['value']['expiredMinutes']*60
+                sliip = result['value']['expiredMinutes']*60
                 time.sleep(sliip)
             except:
                 pass
@@ -549,7 +560,7 @@ def otp13(number):
         if result['success'] == True:
             LIMIT += 1
             try:
-                sliip=result['value']['expiredMinutes']*60
+                sliip = result['value']['expiredMinutes']*60
                 time.sleep(sliip)
             except:
                 pass
