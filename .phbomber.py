@@ -142,6 +142,8 @@ def to09(number) -> str:
         number = "0" + number_str[1:]
     elif number_str.startswith("63"):
         number = "0" + number_str[2:]
+    else:
+        number = number_str
     return number
 
 def time_sleep(sleep=1):
@@ -613,7 +615,7 @@ def otp15(number):
         web = session.post(url, headers=header, json=body, timeout=8)
         result = json.loads(web.text)
         if debug == True:
-            print(f"{web.status_code} from tama bet")
+            print(f"{web.text} from tama bet")
         if result['success'] == True:
             LIMIT += 1
             try:
@@ -891,7 +893,7 @@ def home():
     # if bomber is finish its going here
     print("\r\r"+line2)
     print(f"\033[1;92m║ \033[1;92mTotal sms send \033[1;93m{LIMIT}")
-    print(f"\033[1;92m║ \033[1;92mTotal send error \033[1;91m{ERROR}")
+    print(f"\033[1;92m║ \033[1;92mTotal field send \033[1;91m{ERROR}")
     print("\r\r"+line2)
     print("\033[1;92m║ Done.")
 
