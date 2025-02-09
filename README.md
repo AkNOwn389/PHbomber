@@ -4,7 +4,7 @@ smsbomber its only works in Philippines
 ⚠️ **Use at your own risk!** This tool is intended for educational purposes only, and I am not responsible for any misuse or damage caused.
 
 # Installation and Usage
-# Manual for termux
+# termux
 ```
 pkg install git
 pkg install python3
@@ -13,7 +13,7 @@ cd PHbomber
 pip3 install -r requirements.txt
 python3 run.py
 ```
-# Manual for windows
+# windows
 ```
 # download and install python on python.org
 # download and install git
@@ -23,7 +23,7 @@ cd PHbomber
 pip install -r requirements.txt
 python run.py
 ```
-# Manual for linux
+# linux
 ```
 sudo apt install python3-pip
 sudo apt install git
@@ -46,4 +46,4 @@ If you find this project helpful, consider buying me a coffee.
 
 ⚠️ Use responsibly and happy coding! ⚠️
 
-<a href="https://buymeacoffee.com/dariusofficia10" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+<!-- <a href="https://buymeacoffee.com/dariusofficia10" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a> -->
