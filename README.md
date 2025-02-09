@@ -42,7 +42,7 @@ Contributions are welcome! If you find issues or want to improve the project, fe
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 # Support
-If you find this project helpful, consider buying me a coffee.
+<!-- If you find this project helpful, consider buying me a coffee. -->
 
 ⚠️ Use responsibly and happy coding! ⚠️
 
